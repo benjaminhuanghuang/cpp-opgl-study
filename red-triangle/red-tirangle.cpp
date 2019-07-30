@@ -11,6 +11,10 @@
         g_vertex_buffer_data
 
     ! Don’t panic if you don’t some systems require a shader to show anything) 
+
+		3. Use two shaders : 
+			- Vertex Shader, which will be executed for each vertex
+			- Fragment Shader, which will be executed for each sample. And since we use 4x antialising, we have 4 samples in each pixel.
 */
 // Include standard headers
 #include <stdlib.h>
