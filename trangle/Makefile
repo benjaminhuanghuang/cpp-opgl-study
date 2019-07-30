@@ -12,7 +12,7 @@ COMPILER_FLAGS = -Wall
 LINKER_FLAGS = -lglfw  -lGLEW -framework OpenGL
 
 # OBJ_NAME specifies the name of our exectuable
-NAME = main
+NAME = main.exe
 
 #This is the target that compiles our executable
 all: $(FILE)
