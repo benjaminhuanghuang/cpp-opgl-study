@@ -10,17 +10,14 @@
     2. Define the triangle by using three 3D points
         g_vertex_buffer_data
 
-    3.
+    ! Don’t panic if you don’t some systems require a shader to show anything) 
 */
 // Include standard headers
-#include <stdio.h>
 #include <stdlib.h>
 
-// Include GLEW
 #include <GL/glew.h>
-
-// Include GLFW
 #include <GLFW/glfw3.h>
+
 GLFWwindow* window;
 
 int main( void )
@@ -28,9 +25,7 @@ int main( void )
 	// Initialise GLFW
 	if( !glfwInit() )
 	{
-		fprintf( stderr, "Failed to initialize GLFW\n" );
-		getchar();
-		return -1;
+		exit(EXIT_FAILURE);
 	}
 
 	glfwWindowHint(GLFW_SAMPLES, 4);
@@ -62,20 +57,22 @@ int main( void )
 
 	// VAO
   GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
+	glGenVertexArrays(1, &VertexArrayID);  // create 1 vertex array object 
 	glBindVertexArray(VertexArrayID);
 
 	
-    // The 3 3d points makes a triangle
+  // The 3 3d points makes a triangle
 	static const GLfloat g_vertex_buffer_data[] = { 
 		-1.0f, -1.0f, 0.0f,
 		 1.0f, -1.0f, 0.0f,
 		 0.0f,  1.0f, 0.0f,
 	};
-    // Pass the triangle to openGL
+ 
+  // Pass the triangle to openGL
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	// put data to buffer
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
 	do{
