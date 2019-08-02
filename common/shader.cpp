@@ -17,8 +17,8 @@ Shader::Shader(const char *vertexPath, const char *fragementPath)
 	vertexFile.open(vertexPath);
 	fragementFile.open(fragementPath);
 
-	vertexFile.exceptions(ifstream::failbit || ifstream::badbit);
-	fragementFile.exceptions(ifstream::failbit || ifstream::badbit);
+	vertexFile.exceptions(ifstream::failbit | ifstream::badbit);
+	fragementFile.exceptions(ifstream::failbit | ifstream::badbit);
 
 	try
 	{
@@ -45,17 +45,17 @@ Shader::Shader(const char *vertexPath, const char *fragementPath)
 		checkCompileErrors(fragementId);
 
 		ID = glCreateProgram();
-		glAttachShader(ID, vertex);
-		glAttachShader(ID, fragement);
+		glAttachShader(ID, vertexId);
+		glAttachShader(ID, fragementId);
 		glLinkProgram(ID);
 		checkLinkErrors(ID);
 
-		glDeleteShader(vertex);
-		glDeleteShader(fragement);
+		glDeleteShader(vertexId);
+		glDeleteShader(fragementId);
 	}
 	catch (const std::exception &ex)
 	{
-		printf(ex.what());
+		cout << ex.what() << std::endl;
 	}
 }
 

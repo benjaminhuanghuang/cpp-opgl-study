@@ -1,5 +1,5 @@
 # FILE specifies which files to compile as part of the project
-FILE = *.cpp
+FILE = *.cpp ../common/*.cpp
 
 # CC specifies which compiler we're using
 CC = g++ -std=c++11
