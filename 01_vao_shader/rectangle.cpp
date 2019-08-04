@@ -6,10 +6,10 @@
 #include "../common/Shader.h"
 
 float vertices[] = {
-    0.5f, 0.5f, 0.0f,   // 右上角
-    0.5f, -0.5f, 0.0f,  // 右下角
-    -0.5f, -0.5f, 0.0f, // 左下角
-    -0.5f, 0.5f, 0.0f   // 左上角
+    -0.5f, 0.5f, 0.0f, // vertex 0
+    0.5f, 0.5f, 0.0f, // vertex 1
+    0.5f, -0.5f, 0.0f, // vertex 2
+    -0.5f, -0.5f, 0.0f // vertex 3
 };
 
 unsigned int indices[] = { // 注意索引从0开始! 
