@@ -14,7 +14,7 @@ float vertices[] = {
     // Position, Normal, Texture coordinates
     -0.5f, 0.5f, 0.0f, 0,0,0,1.0f,1.0f,// vertex 0
     0.5f, 0.5f, 0.0f, 0,0,0,1.0f, 0.0f,// vertex 1
-    0.5f, -0.5f, 0.0f, 0,0,0,0.0f,0.0f,// vertex 2
+    0.5f, -0.5f, 0.0f, 0,0,0,0.1f,0.0f,// vertex 2
     -0.5f, -0.5f, 0.0f, 0,0,0,0.0f,0.1f// vertex 3
 };
 
@@ -58,7 +58,7 @@ int main(void)
     
     glViewport(0, 0, 640, 480);
     Shader shader;
-    shader.Load("shaders/sprite.vert", "shader/sprite.frag");
+    shader.Load("shaders/Sprite.vert", "shaders/Sprite.frag");
     
     VertexArray vao(vertices, 4, indices, 6);
 
