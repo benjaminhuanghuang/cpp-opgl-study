@@ -1,5 +1,3 @@
-
-
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
@@ -10,6 +8,7 @@ float vertices[] = {
     0.5f, -0.5f, 0.0f,
     0.0f, 0.5f, 0.0f};
 
+// The shaders
 const char *vertextShaderSource =
     "#version 330 core                                     \n"
     "layout(location = 0) in vec3 aPos;                    \n"

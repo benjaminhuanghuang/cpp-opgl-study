@@ -8,10 +8,11 @@
 
 #include "Shader.h"
 #include <SDL.h>
+#include <SDL_log.h>
 #include <fstream>
 #include <sstream>
 
-Shader::Shader(): mShaderProgram(0), mVertexShader(0), mFragShader(0)
+Shader::Shader() : mVertexShader(0), mFragShader(0), mShaderProgram(0)
 {
 }
 
