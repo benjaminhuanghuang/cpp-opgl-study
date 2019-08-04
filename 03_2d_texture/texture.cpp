@@ -5,16 +5,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "../common/VertexArray.h"
 #include "../common/Shader.h"
 #include "../common/Texture.h"
 
 
 float vertices[] = {
-//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
-     0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
-     0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
-    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
-    -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
+    // Position, Normal, Texture coordinates
+    -0.5f, 0.5f, 0.0f, 0,0,0,1.0f,1.0f,// vertex 0
+    0.5f, 0.5f, 0.0f, 0,0,0,1.0f, 0.0f,// vertex 1
+    0.5f, -0.5f, 0.0f, 0,0,0,0.0f,0.0f,// vertex 2
+    -0.5f, -0.5f, 0.0f, 0,0,0,0.0f,0.1f// vertex 3
+};
+
+unsigned int indices[] = { // 注意索引从0开始! 
+    0, 1, 2, // 第一个三角形
+    2, 3, 0  // 第二个三角形
 };
 
 void processInput(GLFWwindow *window)
@@ -54,18 +60,10 @@ int main(void)
     Shader shader;
     shader.Load("shaders/sprite.vert", "shader/sprite.frag");
     
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO); // create 1 vao
-    glBindVertexArray(VAO);
+    VertexArray vao(vertices, 4, indices, 6);
 
-    unsigned int VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    //
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
-    glEnableVertexAttribArray(0);
+    Texture texture;
+    texture.Load("assets/Plane.png");
 
     while (!glfwWindowShouldClose(window))
     {
@@ -75,10 +73,12 @@ int main(void)
         glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // 1. bind Vertex Array Object
-        glBindVertexArray(VAO);
-        shader->use();
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        // Draw
+        shader.SetActive();
+        vao.SetActive();
+        texture.SetActive();
+
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         //
         glfwSwapBuffers(window);
         glfwPollEvents();
