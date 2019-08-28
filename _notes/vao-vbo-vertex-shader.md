@@ -2,6 +2,13 @@
 
  ## Reference
  - [Tutorial2: VAOs, VBOs, Vertex and Fragment Shaders (C / SDL)](https://www.khronos.org/opengl/wiki/Tutorial2:_VAOs,_VBOs,_Vertex_and_Fragment_Shaders_(C_/_SDL))
+可以把VBO理解成一个数据区域，这里面存放了渲染所需要的一切信息。但数据在VBO里面的时候，OpenGL是并不知道这里面的每个数据所代表的具体含义的，只是一堆数值罢了。
+这时候，VAO(vertex array object)就派上用场了。VAO指定了读取VBO的方式
+VAO可以定义一种格式说，我每次只取VBO里面的x,y,z的值；也可以定义一种格式说，每次只取VBO里面的r,g,b的值。
+这样我们就可以在渲染的时候，绑定不同的VAO，实现按照不同的格式将VBO里面的东西渲染出来
+
+通过定义VBO里面数据存放的方式, VAO的格式以及合适的GLSL 语言，就能够灵活地画出我们所需要的各种图形。
+
 
 ## A Vertex Array Object (VAO) 
 VAO is an object which contains one or more Vertex Buffer Objects and is designed to store the information for a complete rendered object. For example, a diamond consisting of four vertices as well as a color for each vertex.

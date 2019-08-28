@@ -1,11 +1,8 @@
 # FILE specifies which files to compile as part of the project
-FILE = *.cpp ../common/*.cpp
+FILE = *.cpp ../../common/*.cpp
 
 # CC specifies which compiler we're using
 CC = g++ -std=c++11
-
-# INCLUDE_PATHS specifies the additional include paths we'll need
-INCLUDE_PATHS = -I/usr/local/Cellar/sdl2/2.0.9_1/include/SDL2
 
 # COMPILER_FLAGS specifies the additional compilation options we're using
 # -Wall will turn on all standard warnings
@@ -19,4 +16,4 @@ NAME = main.exe
 
 #This is the target that compiles our executable
 all: $(FILE)
-	$(CC) $(FILE) $(INCLUDE_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(NAME)
+	$(CC) $(FILE) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(NAME)

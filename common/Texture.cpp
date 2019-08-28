@@ -8,7 +8,6 @@
 
 #include "Texture.h"
 #include <GL/glew.h>
-#include <SDL.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 	 
@@ -29,7 +28,7 @@ bool Texture::Load(const std::string &fileName)
 
 	if (image == nullptr)
 	{
-		SDL_Log("SOIL failed to load image %s", fileName.c_str());
+		printf("SOIL failed to load image %s\n", fileName.c_str());
 		return false;
 	}
 

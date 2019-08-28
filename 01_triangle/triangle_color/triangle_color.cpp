@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../common/Shader.h"
+#include "../../common/Shader.h"
 
 float vertices[] = {
     // 位置              // 颜色

@@ -7,8 +7,6 @@
 // ----------------------------------------------------------------
 
 #include "Shader.h"
-#include <SDL.h>
-#include <SDL_log.h>
 #include <fstream>
 #include <sstream>
 
@@ -101,13 +99,13 @@ bool Shader::CompileShader(const std::string &fileName, GLenum shaderType, GLuin
 
 		if (!IsCompiled(outShader))
 		{
-			SDL_Log("Failed to compile shader %s", fileName.c_str());
+			printf("Failed to compile shader %s\n", fileName.c_str());
 			return false;
 		}
 	}
 	else
 	{
-		SDL_Log("Shader file not found: %s", fileName.c_str());
+		printf("Shader file not found: %s\n", fileName.c_str());
 		return false;
 	}
 
@@ -125,7 +123,7 @@ bool Shader::IsCompiled(GLuint shader)
 		char buffer[512];
 		memset(buffer, 0, 512);
 		glGetShaderInfoLog(shader, 511, nullptr, buffer);
-		SDL_Log("GLSL Compile Failed:\n%s", buffer);
+		printf("GLSL Compile Failed:\n%s", buffer);
 		return false;
 	}
 
@@ -143,7 +141,7 @@ bool Shader::IsValidProgram()
 		char buffer[512];
 		memset(buffer, 0, 512);
 		glGetProgramInfoLog(mShaderProgram, 511, nullptr, buffer);
-		SDL_Log("GLSL Link Status:\n%s", buffer);
+		printf("GLSL Link Status:\n%s", buffer);
 		return false;
 	}
 

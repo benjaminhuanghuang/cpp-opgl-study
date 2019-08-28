@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../common/Shader.h"
+#include "../../common/Shader.h"
 
 float vertices[] = {
     -0.5f, -0.5f, 0.0f,
@@ -46,14 +46,16 @@ int main(void)
     }
     
     glViewport(0, 0, 640, 480);
+
+    // Prepare data: vertices and shader
     Shader shader;
     shader.Load("assets/basic.vert", "assets/basic.frag");
     
-    unsigned int VAO;
+    GLuint VAO;
     glGenVertexArrays(1, &VAO); // create 1 vao
     glBindVertexArray(VAO);
 
-    unsigned int VBO;
+    GLuint VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -70,7 +72,7 @@ int main(void)
         glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // 1. bind Vertex Array Object
+        // Drawing the triangle
         glBindVertexArray(VAO);
         shader.SetActive();
         glDrawArrays(GL_TRIANGLES, 0, 3);
