@@ -149,13 +149,13 @@ int main(void)
     // Position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,3* sizeof(GLfloat), (GLvoid *)0);
     glEnableVertexAttribArray(0);
+    glBindVertexArray(0); // Unbind boxVAO
 
+    // Light
     unsigned int lightVAO;
     glGenVertexArrays(1, &lightVAO); // create 1 boxvao
     glBindVertexArray(lightVAO);
     
-    glBindVertexArray(0); // Unbind boxVAO
-    // Light
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -164,7 +164,7 @@ int main(void)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,3* sizeof(GLfloat), (GLvoid *)0);
     glEnableVertexAttribArray(0);
 
-    glBindVertexArray(0); // Unbind boxVAO
+    glBindVertexArray(0); // Unbind lightVAO
 
     while (!glfwWindowShouldClose(window))
     {
