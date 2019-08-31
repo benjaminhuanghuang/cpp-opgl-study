@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include <iostream>
 
 #include "../../common/Shader.h"
 #include "../../common/stb_image.h"
@@ -74,8 +74,8 @@ int main(void)
     GLuint texture;
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
-    glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -125,7 +125,6 @@ int main(void)
     glEnableVertexAttribArray( 2 );
     
     glBindVertexArray( 0 ); // Unbind VAO
-
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
@@ -143,9 +142,7 @@ int main(void)
         // Using Texture
         glActiveTexture(GL_TEXTURE);
         glBindTexture(GL_TEXTURE_2D, texture );   
-        glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "ourTexture"), 0);
-
-
+        glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "ourTexture1"), 0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
