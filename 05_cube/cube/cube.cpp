@@ -12,8 +12,6 @@
 #include "../../common/stb_image.h"
 #define STB_IMAGE_IMPLEMENTATION
 
-const GLuint WIDTH = 800, HEIGHT = 600;
-
 // use with Orthographic Projection
 /*
  GLfloat vertices[] = {
@@ -194,18 +192,18 @@ int main(void)
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     // Position attribute
-    // Position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)0);
     glEnableVertexAttribArray(0);
     // TexCoord attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(1);
 
     glBindVertexArray(0); // Unbind VAO
 
     glm::mat4 projection;
     projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
     //projection =   glm::ortho(0.0f, ( GLfloat )screenWidth, 0.0f, ( GLfloat )screenHeight, 0.1f, 1000.0f);
+    
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
@@ -213,27 +211,39 @@ int main(void)
         // Dark blue background
         glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        //
+        //-----------------------------------------------------------
+        // Activate shader
         shader.SetActive();
-        //**********************************************************
-        // Transform
-        //**********************************************************
-        glm::mat4 transform(1.0f);
-        transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
-        transform = glm::rotate(transform, (GLfloat)glfwGetTime() * -5.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-
-        GLint transformLocation = glGetUniformLocation(shader.GetShaderProgram(), "transform");
-        glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transform));
 
         // Using Texture
-        glActiveTexture(GL_TEXTURE);
+        glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
         glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "ourTexture"), 0);
 
-        // Draw triangle
+        //**********************************************************
+        // Transform
+        //**********************************************************
+        // Create transformations
+        glm::mat4 model(1.0f);
+        glm::mat4 view(1.0f);
+        model = glm::rotate(model, (GLfloat)glfwGetTime() * 1.0f, glm::vec3(0.5f, 1.0f, 0.0f)); // use with perspective projection
+        //model = glm::rotate( model, 0.5f, glm::vec3( 1.0f, 0.0f, 0.0f ) ); // use to compare orthographic and perspective projection
+        //view = glm::translate( view, glm::vec3( screenWidth / 2, screenHeight / 2, -700.0f ) ); // use with orthographic projection
+        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); // use with perspective projection
+
+        // Get their uniform location
+        GLint modelLoc = glGetUniformLocation(shader.GetShaderProgram(), "model");
+        GLint viewLoc = glGetUniformLocation(shader.GetShaderProgram(), "view");
+        GLint projLoc = glGetUniformLocation(shader.GetShaderProgram(), "projection");
+        // Pass them to the shaders
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+        // Draw container
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Because use EBO
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
 
         //----------------------------------------------------------
         glfwSwapBuffers(window);
