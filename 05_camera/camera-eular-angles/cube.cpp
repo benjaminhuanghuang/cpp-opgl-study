@@ -194,9 +194,6 @@ int main(void)
     
     glBindVertexArray(0); // Unbind VAO
 
-    glm::mat4 projection;
-    projection = glm::perspective(45.0f, (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
-
     while (!glfwWindowShouldClose(window))
     {
         // Set frame time
@@ -211,18 +208,25 @@ int main(void)
         // Dark blue background
         glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        //-----------------------------------------------------------
+        //-------------------------OpenGL Drawings--------------------------
+
+        //************************************************************
         // Activate shader
+        //************************************************************
         shader.SetActive();
 
+        //************************************************************
         // Using Texture
+        //************************************************************
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
         glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "ourTexture"), 0);
 
+        //************************************************************
         // Create camera transformation
-        glm::mat4 view;
-        view = camera.GetViewMatrix();
+        //************************************************************
+        glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 view = camera.GetViewMatrix( );
 
         // Get the uniform locations
         GLint modelLoc = glGetUniformLocation(shader.GetShaderProgram(), "model");
@@ -238,7 +242,7 @@ int main(void)
         for( GLuint i = 0; i < 10; i++ )
         {
             // Calculate the model matrix for each object and pass it to shader before drawing
-            glm::mat4 model;
+            glm::mat4 model(1.0f);
             model = glm::translate( model, cubePositions[i] );
             GLfloat angle = 20.0f * i;
             model = glm::rotate(model, angle, glm::vec3( 1.0f, 0.3f, 0.5f ) );
