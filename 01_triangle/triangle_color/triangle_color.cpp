@@ -8,10 +8,10 @@
 #include "../../common/Shader.h"
 
 float vertices[] = {
-    // 位置              // 颜色
-    0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // 右下
-    -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // 左下
-    0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f    // 顶部
+    // position             // color
+    0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // bottom left
+    -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // bottom right
+    0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f    // top
 };
 
 void processInput(GLFWwindow *window)
@@ -49,7 +49,7 @@ int main(void)
 
     glViewport(0, 0, 640, 480);
     Shader shader;
-    shader.Load("assets/basic.vert", "assets/basic.frag");
+    shader.Load("shaders/basic.vert", "shaders/basic.frag");
 
     unsigned int VAO;
     glGenVertexArrays(1, &VAO); // create 1 vao

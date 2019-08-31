@@ -1,8 +1,6 @@
-// Request GLSL 3.3
 #version 330
 
-// This should correspond to the data stored
-// for each vertex in the vertex buffer.
+// This should correspond to the data stored for each vertex in the vertex buffer.
 layout (location = 0) in vec3 inPosition; 
 layout (location = 1) in vec3 inColor; 
 
