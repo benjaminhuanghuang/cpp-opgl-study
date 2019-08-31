@@ -191,7 +191,7 @@ int main(void)
     // TexCoord attribute
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
-    
+
     glBindVertexArray(0); // Unbind VAO
 
     while (!glfwWindowShouldClose(window))
@@ -226,7 +226,7 @@ int main(void)
         // Create camera transformation
         //************************************************************
         glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
-        glm::mat4 view = camera.GetViewMatrix( );
+        glm::mat4 view = camera.GetViewMatrix();
 
         // Get the uniform locations
         GLint modelLoc = glGetUniformLocation(shader.GetShaderProgram(), "model");
@@ -239,16 +239,16 @@ int main(void)
 
         // Draw container
         glBindVertexArray(VAO);
-        for( GLuint i = 0; i < 10; i++ )
+        for (GLuint i = 0; i < 10; i++)
         {
             // Calculate the model matrix for each object and pass it to shader before drawing
             glm::mat4 model(1.0f);
-            model = glm::translate( model, cubePositions[i] );
+            model = glm::translate(model, cubePositions[i]);
             GLfloat angle = 20.0f * i;
-            model = glm::rotate(model, angle, glm::vec3( 1.0f, 0.3f, 0.5f ) );
-            glUniformMatrix4fv( modelLoc, 1, GL_FALSE, glm::value_ptr( model ) );
-            
-            glDrawArrays( GL_TRIANGLES, 0, 36 );
+            model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+            glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
         //----------------------------------------------------------
