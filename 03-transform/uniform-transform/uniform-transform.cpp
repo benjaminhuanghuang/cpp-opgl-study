@@ -71,15 +71,7 @@ int main(void)
     //**********************************************************
     Shader shader;
     shader.Load("shaders/basic.vert", "shaders/basic.frag");
-    //**********************************************************
-    // Transform
-    //**********************************************************
-    glm::mat4 transform;
-    transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
-    transform = glm::rotate(transform, (GLfloat)glfwGetTime() * -5.0f, glm::vec3(0.0f,0.0f,1.0f));
 
-    GLint transformLocation  = glGetUniformLocation(shader.GetShaderProgram(), "transform");
-    glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transform));
     //**********************************************************
     // Load texture
     //**********************************************************
@@ -88,7 +80,7 @@ int main(void)
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -147,15 +139,26 @@ int main(void)
 
         //
         shader.SetActive();
-        //
-        glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Because use EBO
+        //**********************************************************
+        // Transform
+        //**********************************************************
+        glm::mat4 transform(1.0f);
+        transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+        transform = glm::rotate(transform, (GLfloat)glfwGetTime() * -5.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 
+        GLint transformLocation = glGetUniformLocation(shader.GetShaderProgram(), "transform");
+        glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transform));
+        
         // Using Texture
         glActiveTexture(GL_TEXTURE);
         glBindTexture(GL_TEXTURE_2D, texture);
-        glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "ourTexture1"), 0);
+        glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "ourTexture"), 0);
 
+        // Draw triangle
+        glBindVertexArray(VAO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Because use EBO
+
+        //----------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

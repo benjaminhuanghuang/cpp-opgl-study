@@ -7,9 +7,9 @@ in vec2 texCoord;
 
 // This corresponds to the output color to the color buffer
 out vec4 outColor;
-uniform sampler2D ourTexture1;
+uniform sampler2D ourTexture;
 
 void main()
 {
-  outColor = texture(ourTexture1, texCoord);
+  outColor = texture(ourTexture, texCoord);
 }
