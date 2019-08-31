@@ -54,6 +54,7 @@
     "utility": "cpp",
     "vector": "cpp",
     "queue": "cpp",
-    "random": "cpp"
+    "random": "cpp",
+    "stack": "cpp"
   }
 }
