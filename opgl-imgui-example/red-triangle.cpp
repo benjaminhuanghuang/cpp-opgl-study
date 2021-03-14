@@ -92,7 +92,9 @@ int main(int, char **)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
     // 加载shader文件，创建并编译GLSL程序
-    GLuint programID = LoadShaders("shaders/triangle.vert", "shaders/triangle.frag");
+    GLuint programID = LoadShaders("shaders/red-triangle.vert", "shaders/red-triangle.frag");
+
+    ImVec4 triangle_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -107,7 +109,7 @@ int main(int, char **)
             ImGui::Begin("imgui"); // Create a window called "imgui" and append into it.
 
             ImGui::Text("This is a 3D triangle."); // Display some text (you can use a format strings too)
-
+            
             ImGui::End();
             // Rendering
             ImGui::Render();
@@ -118,7 +120,8 @@ int main(int, char **)
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        
+
         //********************************************
         // Draw triangle
         glUseProgram(programID);
@@ -126,6 +129,7 @@ int main(int, char **)
         // Starting from vertex 0; 3 vertices total -> 1 triangle
         glDrawArrays(GL_TRIANGLES, 0, 3);
         //********************************************
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         //
         glfwSwapBuffers(window);

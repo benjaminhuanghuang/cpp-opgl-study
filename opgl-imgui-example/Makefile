@@ -12,9 +12,13 @@ basic : basic.cpp
 	g++ $< $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe &&\
 	./basic.exe
 
-triangle : triangle.cpp shader.cpp
+red-triangle : red-triangle.cpp shader.cpp
 	g++ $^ $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe &&\
-	./triangle.exe
+	./red-triangle.exe
+
+color-triangle : color-triangle.cpp shader.cpp
+	g++ $^ $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe &&\
+	./color-triangle.exe
 
 imgui : $(FILES)
 	g++ $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe
