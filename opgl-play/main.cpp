@@ -16,7 +16,6 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 // The MAIN function, from here we start the application and run the game loop
 int main()
 {
-  std::cout << "Starting GLFW context, OpenGL 3.3" << std::endl;
   // Init GLFW
   glfwInit();
   // Set all the required options for GLFW

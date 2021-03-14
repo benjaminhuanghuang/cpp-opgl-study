@@ -27,7 +27,7 @@ message(STATUS "GLEW: ${GLEW_LIBRARIES}")
 
 #=================== INCLUSION OF Project Files ================#
 add_executable(${CMAKE_PROJECT_NAME}
-  mian.cpp
+  main.cpp
 )
 
 #===================== LINKING LIBRARIES =======================#
