@@ -80,6 +80,21 @@ int main(int, char **)
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
+        GLfloat g_vertex_buffer_data[] = {
+            v1.x,
+            v1.y,
+            v1.z,
+            v2.x,
+            v2.y,
+            v2.z,
+            v3.x,
+            v3.y,
+            v3.z,
+        };
+        glGenBuffers(1, &vertexbuffer);
+        // 把我们的顶点数组复制到一个顶点缓冲中，供OpenGL使用
+        glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
         // imgui
         {
@@ -105,21 +120,6 @@ int main(int, char **)
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         //
         // Draw Triangle
-        GLfloat g_vertex_buffer_data[] = {
-            v1.x,
-            v1.y,
-            v1.z,
-            v2.x,
-            v2.y,
-            v2.z,
-            v3.x,
-            v3.y,
-            v3.z,
-        };
-        glGenBuffers(1, &vertexbuffer);
-        // 把我们的顶点数组复制到一个顶点缓冲中，供OpenGL使用
-        glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
         glUseProgram(programID);
 
