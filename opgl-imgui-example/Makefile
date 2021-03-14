@@ -1,17 +1,18 @@
 IMGUI_DIR = ./imgui
 
-INCLUDE_PATHS = -I/usr/local/include -I$(IMGUI_DIR)
+INCLUDES = -I/usr/local/include -I$(IMGUI_DIR)
 
-LIBRARY_PATHS = -L/usr/local/lib
+LIBS = -L/usr/local/lib -lglfw  -lGLEW -framework OpenGL
 
-LINKER_FLAGS = -lglfw  -lGLEW -framework OpenGL
-
-FILES = *.cpp imgui/*.cpp
+FILES = imgui/*.cpp glad.c
 
 #CXXFLAGS += -DIMGUI_IMPL_OPENGL_LOADER_GL3W
 
+basic : basic.cpp Makefile
+	g++ $< $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe
+
 imgui : $(FILES) Makefile
-	g++ $(CXXFLAGS) $(FILES) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $@.exe
+	g++ $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe
 
 
 clean:
