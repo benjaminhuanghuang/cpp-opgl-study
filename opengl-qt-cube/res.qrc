@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/colors.json</file>
+        <file>res/tortuga.mtl</file>
+        <file>res/tortuga.obj</file>
+    </qresource>
+</RCC>
