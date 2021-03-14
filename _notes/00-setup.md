@@ -9,6 +9,7 @@ GLFW (Graphics Library Framework) free, Open Source, multi-platform library for 
 
   /usr/local/Cellar/glfw/3.3.2
 ```
+GLFW窗要调用glfwMakeContextCurrent() 将它与当前OpenGL上下文关联起来
 
 
 ## Extension

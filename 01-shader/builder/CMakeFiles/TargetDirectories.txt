@@ -1,0 +1,3 @@
+/Users/bhuang/ben-github/opgl-study/01-shader/builder/CMakeFiles/rebuild_cache.dir
+/Users/bhuang/ben-github/opgl-study/01-shader/builder/CMakeFiles/edit_cache.dir
+/Users/bhuang/ben-github/opgl-study/01-shader/builder/CMakeFiles/demo.exe.dir
