@@ -9,7 +9,12 @@ FILES = imgui/*.cpp glad.c
 #CXXFLAGS += -DIMGUI_IMPL_OPENGL_LOADER_GL3W
 
 basic : basic.cpp Makefile
-	g++ $< $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe
+	g++ $< $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe &&\
+	./basic.exe
+
+sample : sample.cpp Makefile
+	g++ $< $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe &&\
+	./sample.exe
 
 imgui : $(FILES) Makefile
 	g++ $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe
