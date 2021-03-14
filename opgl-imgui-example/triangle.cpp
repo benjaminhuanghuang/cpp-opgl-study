@@ -8,6 +8,8 @@
 
 // Include glfw3.h after our OpenGL definitions
 #include <GLFW/glfw3.h>
+//
+#include "shader.h"
 
 static void glfw_error_callback(int error, const char *description)
 {
@@ -58,57 +60,102 @@ int main(int, char **)
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    // Our state
-    bool show_demo_window = true;
-    bool show_another_window = false;
+    //初始化各种数据
+    GLuint VBO, VAO, EBO;
+    //创建一个VAO，并将它设为当前对象
+    GLuint VertexArrayID;
+    glGenVertexArrays(1, &VertexArrayID);
+    //绑定顶点数组对象
+    glBindVertexArray(VertexArrayID);
+
+    // 加载shader文件，创建并编译GLSL程序
+    GLuint programID = LoadShaders("shaders/triangle.vert", "shaders/triangle.frag");
+    ImVec4 v1 = ImVec4(-0.25f, -0.25f, 0.0f, 1.00f);
+    ImVec4 v2 = ImVec4(0.25f, -0.25f, 0.0f, 1.00f);
+    ImVec4 v3 = ImVec4(0.0f, 0.25f, 0.0f, 1.00f);
+
+    //定义顶点缓冲，并将顶点缓冲传给OpenGL
+    GLuint vertexbuffer;
+
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
 
-        static float f = 0.0f;
-        static int counter = 0;
+        // imgui
         {
             // Start the Dear ImGui frame
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
 
-            ImGui::Begin("Hello, world!"); // Create a window called "Hello, world!" and append into it.
+            ImGui::Begin("imgui"); // Create a window called "imgui" and append into it.
 
-            ImGui::Text("This is some useful text.");          // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &show_demo_window); // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &show_another_window);
+            ImGui::Text("This is a 3D triangle."); // Display some text (you can use a format strings too)
 
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);             // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float *)&clear_color); // Edit 3 floats representing a color
-
-            if (ImGui::Button("Button")) // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
-
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
             ImGui::End();
-
-            // // Rendering
+            // Rendering
             ImGui::Render();
         }
+
         int display_w, display_h;
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        //
+        // Draw Triangle
+        GLfloat g_vertex_buffer_data[] = {
+            v1.x,
+            v1.y,
+            v1.z,
+            v2.x,
+            v2.y,
+            v2.z,
+            v3.x,
+            v3.y,
+            v3.z,
+        };
+        glGenBuffers(1, &vertexbuffer);
+        // 把我们的顶点数组复制到一个顶点缓冲中，供OpenGL使用
+        glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+
+        glUseProgram(programID);
+
+        // 1rst attribute buffer : vertices
+        glEnableVertexAttribArray(0);
+
+        glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+        //设定顶点属性指针
+        glVertexAttribPointer(
+            0,        // attribute 0. No particular reason for 0, but must match the layout in the shader.
+            3,        // size
+            GL_FLOAT, // type
+            GL_FALSE, // normalized?
+            0,        // stride
+            (void *)0 // array buffer offset
+        );
+
+        // 画三角形
+        // glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
+
+        // glDisableVertexAttribArray(0);
 
         //
         glfwSwapBuffers(window);
     }
 
+    // 释放VAO、VBO、EBO资源
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
     /*
-     Cleanup
+     OpenGL Cleanup
         release ImGui resource
         glfw release
     */
+
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();

@@ -8,15 +8,15 @@ FILES = imgui/*.cpp glad.c
 
 #CXXFLAGS += -DIMGUI_IMPL_OPENGL_LOADER_GL3W
 
-basic : basic.cpp Makefile
+basic : basic.cpp
 	g++ $< $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe &&\
 	./basic.exe
 
-sample : sample.cpp Makefile
-	g++ $< $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe &&\
-	./sample.exe
+triangle : triangle.cpp shader.cpp
+	g++ $^ $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe &&\
+	./triangle.exe
 
-imgui : $(FILES) Makefile
+imgui : $(FILES)
 	g++ $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe
 
 
