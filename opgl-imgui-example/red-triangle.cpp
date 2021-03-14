@@ -94,8 +94,6 @@ int main(int, char **)
     // 加载shader文件，创建并编译GLSL程序
     GLuint programID = LoadShaders("shaders/red-triangle.vert", "shaders/red-triangle.frag");
 
-    ImVec4 triangle_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();

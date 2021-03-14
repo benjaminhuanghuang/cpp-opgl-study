@@ -92,7 +92,7 @@ int main(int, char **)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
     // 加载shader文件，创建并编译GLSL程序
-    GLuint programID = LoadShaders("shaders/red-triangle.vert", "shaders/red-triangle.frag");
+    GLuint programID = LoadShaders("shaders/color-triangle.vert", "shaders/color-triangle.frag");
 
     ImVec4 triangle_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
