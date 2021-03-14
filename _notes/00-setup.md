@@ -22,12 +22,30 @@ GLFW窗要调用glfwMakeContextCurrent() 将它与当前OpenGL上下文关联起
 ```
 
 - GLAD
+GLAD是一个开源的库，功能跟 GLEW 类似。GLAD 使用了一个在线服务（能够告诉 GLAD 需要定义的 OpenGL 版本，并且根据这个版本加载所有相关的 OpenGL 函数）
+glad会提供一个zip压缩文件，包含两个头文件目录，和一个glad.c文件，如下
 
+```
+/Users/Desktop/glad
+├── include
+│   ├── KHR
+│   │   └── khrplatform.h
+│   └── glad
+│       └── glad.h
+└── src
+    └── glad.c
+```
+将两个头文件目录（glad和KHR）复制到/usr/local/include，并添加glad.c到工程中
 
 
 ## Math
 OpenGL Mathematics，一般称作GLM。它是一个只有头文件的C++库，兼容Windows、macOS和Linux
-
+```
+  brew install glm
+```
 
 ## Texture Loader
 - SOIL2
+```
+  brew install glm
+```

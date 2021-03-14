@@ -4,7 +4,7 @@ LIBRARY_PATHS = -L/usr/local/lib
 
 LINKER_FLAGS = -lglfw  -lGLEW -framework OpenGL
 
-COMMON = ../../common/*.cpp
+COMMON = ../common/*.cpp
 
 triangle : triangle.cpp
 	g++ $< $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $@.exe
@@ -17,7 +17,7 @@ triangle-basic : triangle-basic.cpp
 	g++ $< $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $@.exe
 
 
-triangle-color : triangle-color.cpp $(FILE)
+triangle-color : triangle-color.cpp $(COMMON)
 	g++ $< $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $@.exe
 
 

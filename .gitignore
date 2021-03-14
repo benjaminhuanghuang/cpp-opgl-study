@@ -4,3 +4,4 @@ build
 # qt creator
 CMakeLists.txt.user
 build-*
+*.ini

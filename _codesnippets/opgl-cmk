@@ -30,6 +30,17 @@ add_executable(${CMAKE_PROJECT_NAME}
   mian.cpp
 )
 
+
+# Or
+set(SOURCE_DIR "${CMAKE_SOURCE_DIR}/src")
+
+file(GLOB_RECURSE SOURCES
+    "${SOURCE_DIR}/*.h"
+    "${SOURCE_DIR}/*.cpp"
+)
+
+add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
+
 #===================== LINKING LIBRARIES =======================#
 target_link_libraries(${CMAKE_PROJECT_NAME}    
                       ${OPENGL_LIBRARIES}
