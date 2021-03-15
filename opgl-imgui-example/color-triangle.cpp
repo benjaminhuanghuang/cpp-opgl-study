@@ -1,3 +1,7 @@
+/*
+    1. Pass color to shader using uniform
+    2. use uniform in color-triangle.frag
+*/
 #include <iostream>
 #include <stdio.h>
 //
