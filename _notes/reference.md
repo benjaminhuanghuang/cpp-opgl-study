@@ -1,14 +1,14 @@
 
 ## Math
+- https://learnopengl.com/
+- https://learnopengl-cn.github.io/
+
+- [西川善司]  3d图形的概念和渲染管线()
 - OpenGL--3D数学相关(向量和矩阵)
   - https://juejin.cn/post/6850418120432517133
 
 - OpenGL ES 入门 -- 变换
   - https://juejin.cn/post/6844904118105047054
-
-- https://learnopengl-cn.readthedocs.io/zh/latest/01%20Getting%20started/07%20Transformations/
-
-- https://learnopengl.com/Getting-started/Transformations
 
 
 

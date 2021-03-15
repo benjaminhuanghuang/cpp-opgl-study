@@ -1,7 +1,8 @@
 
 
+## Math
 
-## Vector vs Scalar
+### Vector vs Scalar
 向量(Vector)在 坐标系中同时具备 方向(Direction)和大小(Magnitude，也叫做强度或长度), 比如 速度 就是向量, 距离是标量。 向量是没有位置的, 只有方向和长度大小
 
 标量(Scalar)只是一个数字 或者说是仅有一个分量的向量
@@ -12,12 +13,14 @@
 
 我们把这种方法叫做一个向量的标准化(Normalizing)。通常单位向量会变得很有用，特别是在我们只关心方向不关心长度的时候（如果改变向量的长度，它的方向并不会改变）。
 
-## Dot Product
+### Dot Product
 两个向量的点乘 = 它们的数乘结果乘以两个向量之间夹角的余弦值
 
 
-## Cross Product
+### Cross Product
 
+### identity matrix E
+A x E = A
 
 
 
@@ -29,6 +32,28 @@
 
 ## 旋转
 
+
+
+
+## Projection / Orthogonal Matrix
+- [Projection Matrices in OpenGL](https://www.youtube.com/watch?v=xZs6K7VLM7A&ab_channel=TheCherno)
+- [OpenGL中投影矩阵(Projection Matrix)详解]
+
+![](./_images/orthographic-matrix.png)
+
+
+## translate
+
+
+## rotate
+
+
+## Normalized Device Coodination(NDC)
+the x, y and z values vary from -1.0 to 1.0
+
+
+## Normal (法线/法向量)
+In geometry, a normal is an object such as a line, ray, or vector that is `perpendicular` to a given object.
 
 
 

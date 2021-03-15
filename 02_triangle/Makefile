@@ -1,24 +1,22 @@
-INCLUDE_PATHS = -I/usr/local/include
+INCLUDES = -I/usr/local/include
 
-LIBRARY_PATHS = -L/usr/local/lib
-
-LINKER_FLAGS = -lglfw  -lGLEW -framework OpenGL
+LIBS = -L/usr/local/lib -lglfw  -lGLEW -framework OpenGL
 
 COMMON = ../common/*.cpp
 
 triangle : triangle.cpp
-	g++ $< $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $@.exe
+	g++ $< $(INCLUDES) $(LIBS)  -o $@.exe
 
 triangle-white : triangle-white.cpp
-	g++ $< $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $@.exe
+	g++ $< $(INCLUDES) $(LIBS)  -o $@.exe
 
 
 triangle-basic : triangle-basic.cpp
-	g++ $< $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $@.exe
+	g++ $< $(INCLUDES) $(LIBS)  -o $@.exe
 
 
-triangle-color : triangle-color.cpp $(COMMON)
-	g++ $< $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $@.exe
+triangle-3color : triangle-3color.cpp $(COMMON)
+	g++ $^ $(INCLUDES) $(LIBS)  -o $@.exe
 
 
 clean:

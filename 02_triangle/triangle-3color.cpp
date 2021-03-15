@@ -49,7 +49,7 @@ int main(void)
 
     glViewport(0, 0, 640, 480);
     Shader shader;
-    shader.Load("shaders/basic.vert", "shaders/basic.frag");
+    shader.Load("shaders/3color.vert", "shaders/3color.frag");
 
     unsigned int VAO;
     glGenVertexArrays(1, &VAO); // create 1 vao
