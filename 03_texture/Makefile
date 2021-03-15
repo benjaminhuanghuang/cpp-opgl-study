@@ -1,22 +1,26 @@
-# FILE specifies which files to compile as part of the project
-FILE = *.cpp ../../common/*.cpp
+INCLUDES = -I/usr/local/include
 
-# CC specifies which compiler we're using
-CC = g++ -std=c++11
+LIBS = -L/usr/local/lib -lglfw  -lGLEW -framework OpenGL
 
-# INCLUDE_PATHS specifies the additional include paths we'll need
-INCLUDE_PATHS = -I/usr/local/Cellar/sdl2/2.0.9_1/include/SDL2
+COMMON = ../common/*.cpp
 
-# COMPILER_FLAGS specifies the additional compilation options we're using
-# -Wall will turn on all standard warnings
-COMPILER_FLAGS = -Wall
+FLAGS = -Wall
 
-# LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -lSDL2 -lglfw  -lGLEW -framework OpenGL
+triangle : triangle.cpp
+	g++ $< $(INCLUDES) $(LIBS) $(FLAGS) -o $@.exe
 
-# OBJ_NAME specifies the name of our exectuable
-NAME = main.exe
+triangle-white : triangle-white.cpp
+	g++ $< $(INCLUDES) $(LIBS)  -o $@.exe
 
-#This is the target that compiles our executable
-all: $(FILE)
-	$(CC) $(FILE) $(INCLUDE_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(NAME)
+
+triangle-basic : triangle-basic.cpp
+	g++ $< $(INCLUDES) $(LIBS)  -o $@.exe
+
+
+triangle-3color : triangle-3color.cpp $(COMMON)
+	g++ $^ $(INCLUDES) $(LIBS) $(FLAGS) -o $@.exe
+
+
+clean:
+	rm -rf *.exe
+
