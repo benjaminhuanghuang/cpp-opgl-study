@@ -101,7 +101,7 @@ int main(void)
     //**********************************************************
     // Load shaders
     //**********************************************************
-    GLuint programID = LoadShaders("shaders/cube.vert", "shaders/cube.frag");
+    GLuint programID = LoadShaders("shaders/cube-turn.vert", "shaders/cube-turn.frag");
 
     //**********************************************************
     // Load texture
