@@ -8,9 +8,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "../../common/Shader.h"
-#include "../../common/stb_image.h"
+#include "../common/shader-c.h"
 #define STB_IMAGE_IMPLEMENTATION
+#include "../common/stb_image.h"
 
 // Rectangle vertices
 float vertices[] = {
@@ -69,8 +69,7 @@ int main(void)
     //**********************************************************
     // Load shaders
     //**********************************************************
-    Shader shader;
-    shader.Load("shaders/basic.vert", "shaders/basic.frag");
+    GLuint programID = LoadShaders("shaders/basic.vert", "shaders/basic.frag");
 
     //**********************************************************
     // Load texture
@@ -138,7 +137,7 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         //
-        shader.SetActive();
+        glUseProgram(programID);
         //**********************************************************
         // Transform
         //**********************************************************
@@ -146,13 +145,13 @@ int main(void)
         transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
         transform = glm::rotate(transform, (GLfloat)glfwGetTime() * -5.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 
-        GLint transformLocation = glGetUniformLocation(shader.GetShaderProgram(), "transform");
+        GLint transformLocation = glGetUniformLocation(programID, "transform");
         glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transform));
         
         // Using Texture
         glActiveTexture(GL_TEXTURE);
         glBindTexture(GL_TEXTURE_2D, texture);
-        glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "ourTexture"), 0);
+        glUniform1i(glGetUniformLocation(programID, "ourTexture"), 0);
 
         // Draw triangle
         glBindVertexArray(VAO);
