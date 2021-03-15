@@ -8,57 +8,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "../common/Shader.h"
-#include "../common/stb_image.h"
+#include "shader.h"
 #define STB_IMAGE_IMPLEMENTATION
+#include "../common/stb_image.h"
 
-// use with Orthographic Projection
-/*
- GLfloat vertices[] = {
-        -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 0.0f,
-        0.5f * 500, -0.5f * 500, -0.5f * 500,  1.0f, 0.0f,
-        0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-        0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-        -0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-        -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 0.0f,
-        
-        -0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-        0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-        0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 1.0f,
-        0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 1.0f,
-        -0.5f * 500,  0.5f * 500,  0.5f * 500,  0.0f, 1.0f,
-        -0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-        
-        -0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-        -0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-        -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-        -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-        -0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-        -0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-        
-        0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-        0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-        0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-        0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-        0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-        0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-        
-        -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-        0.5f * 500, -0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-        0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-        0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-        -0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-        -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-        
-        -0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-        0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-        0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-        0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-        -0.5f * 500,  0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-        -0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f
-    };
-     
-*/
+
 // use with Perspective Projection
 GLfloat vertices[] = {
     -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
@@ -147,8 +101,7 @@ int main(void)
     //**********************************************************
     // Load shaders
     //**********************************************************
-    Shader shader;
-    shader.Load("shaders/cube.vert", "shaders/cube.frag");
+    GLuint programID = LoadShaders("shaders/cube.vert", "shaders/cube.frag");
 
     //**********************************************************
     // Load texture
@@ -163,10 +116,10 @@ int main(void)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    unsigned char *image = stbi_load("images/wood.jpeg", &width, &height, &channels, 0);
+    unsigned char *image = stbi_load("images/wood.png", &width, &height, &channels, 0);
     if (image == nullptr)
     {
-        printf("SOIL failed to load image %s\n", "images/image1.jpg");
+        printf("Failed to load image\n");
     }
 
     int format = GL_RGB;
@@ -211,34 +164,13 @@ int main(void)
         // Dark blue background
         glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        //-----------------------------------------------------------
-        // Activate shader
-        shader.SetActive();
+     
 
+        glUseProgram(programID);
         // Using Texture
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
-        glUniform1i(glGetUniformLocation(shader.GetShaderProgram(), "ourTexture"), 0);
-
-        //**********************************************************
-        // Transform
-        //**********************************************************
-        // Create transformations
-        glm::mat4 model(1.0f);
-        glm::mat4 view(1.0f);
-        model = glm::rotate(model, (GLfloat)glfwGetTime() * 1.0f, glm::vec3(0.5f, 1.0f, 0.0f)); // use with perspective projection
-        //model = glm::rotate( model, 0.5f, glm::vec3( 1.0f, 0.0f, 0.0f ) ); // use to compare orthographic and perspective projection
-        //view = glm::translate( view, glm::vec3( screenWidth / 2, screenHeight / 2, -700.0f ) ); // use with orthographic projection
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); // use with perspective projection
-
-        // Get their uniform location
-        GLint modelLoc = glGetUniformLocation(shader.GetShaderProgram(), "model");
-        GLint viewLoc = glGetUniformLocation(shader.GetShaderProgram(), "view");
-        GLint projLoc = glGetUniformLocation(shader.GetShaderProgram(), "projection");
-        // Pass them to the shaders
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+        glUniform1i(glGetUniformLocation(programID, "ourTexture"), 0);
 
         // Draw container
         glBindVertexArray(VAO);

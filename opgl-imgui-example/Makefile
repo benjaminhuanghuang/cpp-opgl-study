@@ -20,6 +20,12 @@ color-triangle : color-triangle.cpp shader.cpp
 	g++ $^ $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe &&\
 	./color-triangle.exe
 
+cube : cube.cpp shader.cpp
+	g++ $^ $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe
+
+cube-turn : cube-turn.cpp shader.cpp
+	g++ $^ $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe
+
 imgui : $(FILES)
 	g++ $(CXXFLAGS) $(FILES) $(INCLUDES) $(LIBS) -o $@.exe
 

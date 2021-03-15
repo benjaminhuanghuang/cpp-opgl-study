@@ -6,6 +6,7 @@ https://github.com/nothings/stb
 只能在一个文件中加入
 ```
   #define STB_IMAGE_IMPLEMENTATION
+  #include "stb_image.h"
 ```
 在Y轴反转
 ```
