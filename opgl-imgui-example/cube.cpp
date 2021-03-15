@@ -8,7 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "shader.h"
+#include "../common/shader-c.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "../common/stb_image.h"
 
@@ -155,7 +155,6 @@ int main(void)
 
     glm::mat4 projection;
     projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
-    //projection =   glm::ortho(0.0f, ( GLfloat )screenWidth, 0.0f, ( GLfloat )screenHeight, 0.1f, 1000.0f);
     
     while (!glfwWindowShouldClose(window))
     {
@@ -171,7 +170,28 @@ int main(void)
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
         glUniform1i(glGetUniformLocation(programID, "ourTexture"), 0);
+        
+        //**********************************************************
+        // Transform
+        //**********************************************************
+        // Create transformations
+        glm::mat4 model(1.0f);
+        glm::mat4 view(1.0f);
+        model = glm::rotate(model, (GLfloat)glfwGetTime() * 1.0f, glm::vec3(0.5f, 1.0f, 0.0f)); // use with perspective projection
+        //model = glm::rotate( model, 0.5f, glm::vec3( 1.0f, 0.0f, 0.0f ) ); // use to compare orthographic and perspective projection
+        //view = glm::translate( view, glm::vec3( screenWidth / 2, screenHeight / 2, -700.0f ) ); // use with orthographic projection
+        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); // use with perspective projection
 
+        // Get their uniform location
+        GLint modelLoc = glGetUniformLocation(programID, "model");
+        GLint viewLoc = glGetUniformLocation(programID, "view");
+        GLint projLoc = glGetUniformLocation(programID, "projection");
+        // Pass them to the shaders
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+        
         // Draw container
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);

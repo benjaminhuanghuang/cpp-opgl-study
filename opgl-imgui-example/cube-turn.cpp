@@ -8,7 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "shader.h"
+#include "../common/shader-c.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "../common/stb_image.h"
 

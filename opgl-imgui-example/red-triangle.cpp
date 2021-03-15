@@ -9,7 +9,7 @@
 // Include glfw3.h after our OpenGL definitions
 #include <GLFW/glfw3.h>
 //
-#include "shader.h"
+#include "../common/shader-c.h"
 
 static void glfw_error_callback(int error, const char *description)
 {
