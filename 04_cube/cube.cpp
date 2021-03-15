@@ -8,8 +8,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "../../common/Shader.h"
-#include "../../common/stb_image.h"
+#include "../common/Shader.h"
+#include "../common/stb_image.h"
 #define STB_IMAGE_IMPLEMENTATION
 
 // use with Orthographic Projection
@@ -148,7 +148,7 @@ int main(void)
     // Load shaders
     //**********************************************************
     Shader shader;
-    shader.Load("shaders/basic.vert", "shaders/basic.frag");
+    shader.Load("shaders/cube.vert", "shaders/cube.frag");
 
     //**********************************************************
     // Load texture
