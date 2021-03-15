@@ -63,7 +63,7 @@ int main(void)
     VertexArray vao(vertices, 4, indices, 6);
 
     Texture texture;
-    texture.Load("assets/Plane.png");
+    texture.Load("images/Plane.png");
 
     while (!glfwWindowShouldClose(window))
     {

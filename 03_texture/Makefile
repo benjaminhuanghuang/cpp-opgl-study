@@ -6,18 +6,7 @@ COMMON = ../common/*.cpp
 
 FLAGS = -Wall
 
-triangle : triangle.cpp
-	g++ $< $(INCLUDES) $(LIBS) $(FLAGS) -o $@.exe
-
-triangle-white : triangle-white.cpp
-	g++ $< $(INCLUDES) $(LIBS)  -o $@.exe
-
-
-triangle-basic : triangle-basic.cpp
-	g++ $< $(INCLUDES) $(LIBS)  -o $@.exe
-
-
-triangle-3color : triangle-3color.cpp $(COMMON)
+2d-texture : 2d-texture.cpp $(COMMON)
 	g++ $^ $(INCLUDES) $(LIBS) $(FLAGS) -o $@.exe
 
 
