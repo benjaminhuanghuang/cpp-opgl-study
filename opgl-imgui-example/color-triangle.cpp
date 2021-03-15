@@ -94,8 +94,11 @@ int main(int, char **)
     // 加载shader文件，创建并编译GLSL程序
     GLuint programID = LoadShaders("shaders/color-triangle.vert", "shaders/color-triangle.frag");
 
-    ImVec4 triangle_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    ImVec4 triangle_color = ImVec4(0.5f, 1.0f, 0.60f, 1.00f);
 
+    int vertexColorLocation = glGetUniformLocation(programID, "theColor");
+    
+    
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
@@ -126,6 +129,7 @@ int main(int, char **)
         // Draw triangle
         glUseProgram(programID);
         glBindVertexArray(VAO);
+        glUniform4fv(vertexColorLocation,1, (const GLfloat *)&triangle_color);
         // Starting from vertex 0; 3 vertices total -> 1 triangle
         glDrawArrays(GL_TRIANGLES, 0, 3);
         //********************************************
