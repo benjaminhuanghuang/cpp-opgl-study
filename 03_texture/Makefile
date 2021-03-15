@@ -6,9 +6,13 @@ COMMON = ../common/*.cpp
 
 FLAGS = -Wall
 
-2d-texture : 2d-texture.cpp $(COMMON)
+
+stb-demo : stb-demo.cpp $(COMMON)
 	g++ $^ $(INCLUDES) $(LIBS) $(FLAGS) -o $@.exe
 
+
+2d-texture : 2d-texture.cpp $(COMMON)
+	g++ $^ $(INCLUDES) $(LIBS) $(FLAGS) -o $@.exe
 
 clean:
 	rm -rf *.exe

@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <iostream>
 
-#include "../../common/Shader.h"
-#include "../../common/stb_image.h"
+#include "../common/Shader.h"
+#include "../common/stb_image.h"
 #define STB_IMAGE_IMPLEMENTATION
 
 // Rectangle vertices
