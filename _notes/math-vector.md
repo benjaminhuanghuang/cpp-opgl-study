@@ -1,14 +1,20 @@
 
 ## Vector vs Scalar
-向量(Vector)在 坐标系中同时具备 方向(Direction)和大小(Magnitude，也叫做强度或长度), 比如 速度 就是向量, 距离是标量。 向量是没有位置的, 只有方向和长度大小
+A vector is a quantity that has a `magnitude` and a `direction`. 
+For example: displacement, velocity, acceleration and force.
 
-标量(Scalar)只是一个数字 或者说是仅有一个分量的向量
+In a 3D coordinate system, a vector is specified by the coordinates with respect to the coordinate system.
 
-有一个特殊类型的向量叫做单位向量(Unit Vector)。单位向量有一个特别的性质——它的长度是1。
+Vector magnitude = sqr(x^2 + y^2 + z^2)
 
-可以用任意向量的每个分量除以向量的长度得到它的单位向量n̂
+Unit Vector / Normalized vectors
+In some cases, we don't care about the magnitude of the vector, we just want to know the
+direction of the vector.
 
-我们把这种方法叫做一个向量的标准化(Normalizing)。通常单位向量会变得很有用，特别是在我们只关心方向不关心长度的时候（如果改变向量的长度，它的方向并不会改变）。
+In unit vectors, the X, Y, and Z components of the vector are divided by the magnitude to
+create a vector of unit length.
+
+![](./_images/unit-vector.png)
 
 ## 向量与标量运算
 ## Dot Product

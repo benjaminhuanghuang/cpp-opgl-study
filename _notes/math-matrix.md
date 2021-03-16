@@ -16,6 +16,8 @@
 单位矩阵同时也是旋转矩阵的一个特例，其(X, Y, Z)=(0, 0, 0)）。
 
 
+## Matrix transpose
+![](./_images/matrix-transpose.png)
 
 
 ## 缩放(Scaling)
