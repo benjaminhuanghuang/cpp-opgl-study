@@ -1,37 +1,83 @@
 
+## A x B
 
-## Math
-
-### Vector vs Scalar
-向量(Vector)在 坐标系中同时具备 方向(Direction)和大小(Magnitude，也叫做强度或长度), 比如 速度 就是向量, 距离是标量。 向量是没有位置的, 只有方向和长度大小
-
-标量(Scalar)只是一个数字 或者说是仅有一个分量的向量
-
-有一个特殊类型的向量叫做单位向量(Unit Vector)。单位向量有一个特别的性质——它的长度是1。
-
-可以用任意向量的每个分量除以向量的长度得到它的单位向量n̂
-
-我们把这种方法叫做一个向量的标准化(Normalizing)。通常单位向量会变得很有用，特别是在我们只关心方向不关心长度的时候（如果改变向量的长度，它的方向并不会改变）。
-
-### Dot Product
-两个向量的点乘 = 它们的数乘结果乘以两个向量之间夹角的余弦值
+只有当左侧矩阵的列数与右侧矩阵的行数相等，两个矩阵才能相乘。
+矩阵相乘不遵守交换律(Commutative) A⋅B≠B⋅A
 
 
-### Cross Product
+## Identity matrix E
+单位矩阵的身份和自然数”1”一样基础而重要，A x E = A
 
-### identity matrix E
-A x E = A
+```
+  glm::mat4 myIdentityMatrix = glm::mat4(1.0);
+```
+单位矩阵只是缩放矩阵的一个特例，其(X, Y, Z) = (1, 1, 1)。
+
+单位矩阵同时也是旋转矩阵的一个特例，其(X, Y, Z)=(0, 0, 0)）。
 
 
 
 
-## 放缩
+## 缩放(Scaling)
+对一个向量进行缩放(Scaling)就是对向量的长度进行缩放，而保持它的方向不变
 
-## Move
+
+## 位移 (Translation)
+
+是在原始向量的基础上加上另一个向量从而获得一个在不同位置的新向量的过程
+
+对于位移来说它们是第四列最上面的3个值
+![](./_images/translation-matrix.png)
 
 
-## 旋转
+## 齐次坐标(Homogeneous Coordinates)
+如果一个向量的齐次坐标是0，这个坐标就是方向向量(Direction Vector)，因为w坐标是0，这个向量就不能位移
 
+
+## 旋转(Rotation)
+![](./_images/rotation-matrix.png)
+
+
+
+## 矩阵的组合
+根据矩阵之间的乘法，可以把多个变换组合到一个矩阵中
+
+假设有一个顶点(x, y, z)，将其缩放2倍，然后位移(1, 2, 3)个单位。需要一个位移和缩放矩阵来完成这些变换：
+
+![](./_images/trans-scale.png)
+
+当矩阵相乘时，在最右边的矩阵是第一个与向量相乘的，所以应该从右向左读这个乘法。
+
+在组合矩阵时，先进行缩放操作，然后是旋转，最后才是位移，否则它们会（消极地）互相影响。比如，如果先位移再缩放，位移的向量也会同样被缩放
+
+```
+  TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;
+```
+注意！！！这行代码首先执行缩放，接着旋转，最后才是平移
+
+假设有个船的模型（为简化，略去旋转）：
+
+错误做法：
+
+- 按(10, 0, 0)平移船体。船体中心目前距离原点10个单位。
+- 将船体放大2倍。以原点为参照，每个坐标都变成原来的2倍，就出问题了。最后您得到的是一艘放大的船，但其中心位于2*10=20。It's wrong
+
+正确做法：
+- 将船体放大2倍，得到一艘中心位于原点的大船。
+- 平移船体。船大小不变，移动距离也正确。
+
+
+用C++，GLM表示：
+```
+glm::mat4 myModelMatrix = myTranslationMatrix * myRotationMatrix * myScaleMatrix;
+glm::vec4 myTransformedVector = myModelMatrix * myOriginalVector;
+```
+
+用GLSL表示：
+```
+mat4 transform = mat2 * mat1;
+vec4 out_vec = transform * in_vec;
+```
 
 
 
@@ -41,11 +87,6 @@ A x E = A
 
 ![](./_images/orthographic-matrix.png)
 
-
-## translate
-
-
-## rotate
 
 
 ## Normalized Device Coodination(NDC)
@@ -101,15 +142,6 @@ glm::vec4 transformedVector = myMatrix * myVector; // guess the result
 vec4 transformedVector = myMatrix * myVector;
 ```
 
-## 单位矩阵（Identity matrix）
-单位矩阵很特殊，它什么也不做。单位矩阵的身份和自然数”1”一样基础而重要，
-C++
-```
-  glm::mat4 myIdentityMatrix = glm::mat4(1.0);
-```
-单位矩阵只是缩放矩阵的一个特例，其(X, Y, Z) = (1, 1, 1)。单位矩阵同时也是旋转矩阵的一个特例，其(X, Y, Z)=(0, 0, 0)）。
-
-
 ## 缩放矩阵（Scaling matrices）
 ![](scalingMatrix.png)
 
@@ -123,31 +155,7 @@ glm::rotate( angle_in_degrees, myRotationAxis );
 
 
 ## 累积变换
-TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;
-！！！注意！！！这行代码首先执行缩放，接着旋转，最后才是平移。这就是矩阵乘法的工作方式。
 
-假设有个船的模型（为简化，略去旋转）：
-
-错误做法：
-
-- 按(10, 0, 0)平移船体。船体中心目前距离原点10个单位。
-- 将船体放大2倍。以原点为参照，每个坐标都变成原来的2倍，就出问题了。最后您得到的是一艘放大的船，但其中心位于2*10=20。这并非您预期的结果。
-
-正确做法：
-- 将船体放大2倍，得到一艘中心位于原点的大船。
-- 平移船体。船大小不变，移动距离也正确。
-
-
-用C++，GLM表示：
-```
-glm::mat4 myModelMatrix = myTranslationMatrix * myRotationMatrix * myScaleMatrix;
-glm::vec4 myTransformedVector = myModelMatrix * myOriginalVector;
-```
-用GLSL表示：
-```
-mat4 transform = mat2 * mat1;
-vec4 out_vec = transform * in_vec;
-```
 
 ## 投影矩阵（projectionMatrix）
 ```
