@@ -59,12 +59,12 @@ int main(void)
 
     glViewport(0, 0, 1280, 760);
     Shader shader;
-    shader.Load("shaders/cube.vert", "shaders/dube.frag");
+    shader.Load("shaders/cube.vert", "shaders/cube.frag");
 
     VertexArray vao(vertices, 4, indices, 6);
 
     Texture texture;
-    texture.Load("images/wall.png");
+    texture.Load("images/wood.png");
 
     while (!glfwWindowShouldClose(window))
     {
