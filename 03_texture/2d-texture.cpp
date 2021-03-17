@@ -9,18 +9,35 @@
 #include "../common/Shader.h"
 #include "../common/Texture.h"
 
+// float vertices[] = {
+//     // Position, Normal, Texture coordinates
+//     -0.5f, 0.5f, 0.0f, 0, 0, 0, 0.0f, 0.0f, // vertex 0
+//     0.5f, 0.5f, 0.0f, 0, 0, 0,  1.0f, 0.0f,  // vertex 1
+//     0.5f, -0.5f, 0.0f, 0, 0, 0, 0.1f, 1.0f, // vertex 2
+//     -0.5f, -0.5f, 0.0f, 0, 0, 0, 0.0f, 1.0f // vertex 3
+// };
 
+//     unsigned int indices[] = {
+//     // the index starts from 0!
+//     0, 1, 2, // 第一个三角形
+//     2, 3, 0  // 第二个三角形
+// };
+/*
+    0       3
+
+    1       2 
+*/
 float vertices[] = {
     // Position, Normal, Texture coordinates
-    -0.5f, 0.5f, 0.0f, 0,0,0,1.0f,1.0f,// vertex 0
-    0.5f, 0.5f, 0.0f, 0,0,0,1.0f, 0.0f,// vertex 1
-    0.5f, -0.5f, 0.0f, 0,0,0,0.1f,0.0f,// vertex 2
-    -0.5f, -0.5f, 0.0f, 0,0,0,0.0f,0.1f// vertex 3
+    -0.5f, 0.5f, 0.0f, 0, 0, 0, 0.0f, 0.0f, // vertex 0
+    -0.5f, -0.5f, 0.0f, 0, 1.0f, 0,  0.0f, 1.0f,  // vertex 1
+    0.5f, -0.5f, 0.0f, 0, 0, 1.0f, 0.1f, 1.0f, // vertex 2
+    0.5f, 0.5f, 0.0f, 1.0f, 0, 0, 1.0f, 0.0f // vertex 3
 };
-
-unsigned int indices[] = { // 注意索引从0开始! 
+unsigned int indices[] = {
+    // the index starts from 0!
     0, 1, 2, // 第一个三角形
-    2, 3, 0  // 第二个三角形
+    0, 3, 2  // 第二个三角形
 };
 
 void processInput(GLFWwindow *window)
@@ -55,15 +72,15 @@ int main(void)
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
-    
+
     glViewport(0, 0, 640, 480);
     Shader shader;
-    shader.Load("shaders/Sprite.vert", "shaders/Sprite.frag");
-    
+    shader.Load("shaders/wall.vert", "shaders/wall.frag");
+
     VertexArray vao(vertices, 4, indices, 6);
 
     Texture texture;
-    texture.Load("images/Plane.png");
+    texture.Load("images/beautiful.png");
 
     while (!glfwWindowShouldClose(window))
     {

@@ -45,7 +45,9 @@ OpenGL Mathematics，一般称作GLM。它是一个只有头文件的C++库，�
 ```
 
 ## Texture Loader
-- SOIL2
+- SOIL
 ```
-  brew install glm
+  make install
+  cp lib/libSOIL.a /usr/local/lib/
+  cp src/SOIL.h /usr/local/include/
 ```
