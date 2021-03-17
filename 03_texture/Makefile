@@ -12,7 +12,8 @@ stb-demo : stb-demo.cpp $(COMMON)
 
 
 2d-texture : 2d-texture.cpp $(COMMON)
-	g++ $^ $(INCLUDES) $(LIBS) $(FLAGS) -o $@.exe
+	g++ $^ $(INCLUDES) $(LIBS) $(FLAGS) -o $@.exe &&\
+	./2d-texture.exe
 
 clean:
 	rm -rf *.exe

@@ -9,33 +9,33 @@
 #include "../common/Shader.h"
 #include "../common/Texture.h"
 
-// float vertices[] = {
-//     // Position, Normal, Texture coordinates
-//     -0.5f, 0.5f, 0.0f, 0, 0, 0, 0.0f, 0.0f, // top left
-//     0.5f, 0.5f, 0.0f, 0, 0, 0, 1.0f, 0.0f,  // top right
-//     0.5f, -0.5f, 0.0f, 0, 0, 0, 0.1f, 1.0f, // bottom right
-//     -0.5f, -0.5f, 0.0f, 0, 0, 0, 0.0f, 1.0f // bottom left
-// };
-
-// unsigned int indices[] = {
-//     // the index starts from 0!
-//     0, 1, 2, // 第一个三角形
-//     2, 3, 0  // 第二个三角形
-// };
-// Rectangle vertices
 float vertices[] = {
-    // Positions          // Colors           // Texture Coords
-    0.5f, 0.5f, 0.0f,     1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // Top Right
-    0.5f, -0.5f, 0.0f,    0.0f, 1.0f, 0.0f,   1.0f, 0.0f,  // Bottom Right
-    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // Bottom Left
-    -0.5f, 0.5f, 0.0f,    1.0f, 1.0f, 0.0f,   0.0f, 1.0f   // Top Left
+    // Position, Normal, Texture coordinates
+    -0.5f, 0.5f, 0.0f, 0, 0, 0, 0.0f, 1.0f, // top left
+    0.5f, 0.5f, 0.0f, 0, 0, 0, 1.0f, 01.0f,  // top right
+    0.5f, -0.5f, 0.0f, 0, 0, 0, 1.0f, 0.0f, // bottom right
+    -0.5f, -0.5f, 0.0f, 0, 0, 0, 0.0f, 0.0f // bottom left
 };
 
-GLuint indices[] =
-{  // Note that we start from 0!
-    0, 1, 3, // First Triangle
-    1, 2, 3  // Second Triangle
+unsigned int indices[] = {
+    // the index starts from 0!
+    0, 1, 2, // 第一个三角形
+    2, 3, 0  // 第二个三角形
 };
+// Rectangle vertices
+// float vertices[] = {
+//     // Positions          // Colors           // Texture Coords
+//     0.5f, 0.5f, 0.0f,     1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // Top Right
+//     0.5f, -0.5f, 0.0f,    0.0f, 1.0f, 0.0f,   1.0f, 0.0f,  // Bottom Right
+//     -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // Bottom Left
+//     -0.5f, 0.5f, 0.0f,    1.0f, 1.0f, 0.0f,   0.0f, 1.0f   // Top Left
+// };
+
+// GLuint indices[] =
+// {  // Note that we start from 0!
+//     0, 1, 3, // First Triangle
+//     1, 2, 3  // Second Triangle
+// };
 
 void processInput(GLFWwindow *window)
 {
