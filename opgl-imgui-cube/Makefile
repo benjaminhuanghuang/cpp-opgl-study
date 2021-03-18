@@ -1,4 +1,4 @@
-IMGUI_DIR = ../common/imgui 
+IMGUI_DIR = ../common/imgui
 
 INCLUDES = -I/usr/local/include -I$(IMGUI_DIR) -I../common
 

@@ -1,4 +1,6 @@
-#include "opgl.h"
+#include "../common/myOpgl.h"
+#include "../common/myMesh.h"
+//
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -10,15 +12,30 @@
 
 const char *glsl_version = "#version 150";
 
-float rotate_x = 0.5;
-float rotate_y = 1;
-float rotate_z = 0;
+float rotate_x;
+float rotate_y;
+float rotate_z;
 
-float x = 0;
-float y = 0;
-float z = -3.0;
+float x;
+float y;
+float z;
 
-float rotate_speed = 50;
+float rotate_speed;
+
+ImVec4 bg_color;
+
+void init()
+{
+    rotate_x = 0.5;
+    rotate_y = 1;
+    rotate_z = 0;
+
+    x = 0;
+    y = 0;
+    z = -3.0;
+
+    bg_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+}
 
 void processInput(GLFWwindow *window)
 {
@@ -80,12 +97,13 @@ int main(void)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
+    init();
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
 
         // Clear the screen to dark blue background
-        glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
+        glClearColor(bg_color.x, bg_color.y, bg_color.z, bg_color.w);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Create transformations
@@ -126,6 +144,8 @@ int main(void)
 
             ImGui::Begin("Control Panel"); // Create a ImGui window called "Control Panel"
 
+            ImGui::ColorEdit3("Background Color", (float *)&bg_color);
+
             ImGui::SliderFloat("x", &x, -100, 100);
             ImGui::SliderFloat("y", &y, -100, 100);
             ImGui::SliderFloat("z", &z, 0, -100);
@@ -135,15 +155,8 @@ int main(void)
             ImGui::SliderFloat("rotate z", &rotate_z, -3.14f, 3.14f);
             if (ImGui::Button("Reset")) // Buttons return true when clicked
             {
-                rotate_x = 0.5;
-                rotate_y = 1;
-                rotate_z = 0;
-
-                x = 0;
-                y = 0;
-                z = -3.0;
-            }
-
+                init();
+            }    
             ImGui::End();
 
             // Rendering

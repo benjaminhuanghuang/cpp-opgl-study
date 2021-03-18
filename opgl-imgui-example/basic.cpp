@@ -1,3 +1,5 @@
+#include "../common/myOpgl.h"
+// 
 #include <iostream>
 #include <stdio.h>
 //
@@ -9,43 +11,11 @@
 // Include glfw3.h after our OpenGL definitions
 #include <GLFW/glfw3.h>
 
-static void glfw_error_callback(int error, const char *description)
-{
-    fprintf(stderr, "Glfw Error %d: %s\n", error, description);
-}
-
 int main(int, char **)
 {
-    // Setup window
-    glfwSetErrorCallback(glfw_error_callback);
-    if (!glfwInit())
-        return 1;
-
-    const char *glsl_version = "#version 150";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // 3.2+ only
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);           // for Mac
-
-    GLFWwindow *window = glfwCreateWindow(1600, 1200, "ImGui Triangle", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // Enable vsync
-
-    bool err = glewInit() != GLEW_OK;
-    if (err)
-    {
-        fprintf(stderr, "Failed to initialize OpenGL loader!\n");
-        return 1;
-    }
-
+   GLFWwindow *window = CreateWidnow(1600, 1200, "ImGui Demo");
     //创建并绑定ImGui
-    IMGUI_CHECKVERSION();
+    IMGUI_CHECKVERSION();s
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
     (void)io;
@@ -93,9 +63,8 @@ int main(int, char **)
             // Rendering
             ImGui::Render();
         }
-        int display_w, display_h;
-        glfwGetFramebufferSize(window, &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
+      
+      
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
