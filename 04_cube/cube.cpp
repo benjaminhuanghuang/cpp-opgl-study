@@ -163,10 +163,10 @@ int main(void)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    unsigned char *image = stbi_load("images/wood.jpeg", &width, &height, &channels, 0);
+    unsigned char *image = stbi_load("images/wood.png", &width, &height, &channels, 0);
     if (image == nullptr)
     {
-        printf("SOIL failed to load image %s\n", "images/image1.jpg");
+        printf("SOIL failed to load image");
     }
 
     int format = GL_RGB;
@@ -195,7 +195,7 @@ int main(void)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)0);
     glEnableVertexAttribArray(0);
     // TexCoord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
     glBindVertexArray(0); // Unbind VAO
