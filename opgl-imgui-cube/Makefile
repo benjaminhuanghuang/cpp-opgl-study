@@ -4,7 +4,7 @@ INCLUDES = -I/usr/local/include -I$(IMGUI_DIR)
 
 LIBS = -L/usr/local/lib -lglfw  -lGLEW -framework OpenGL
 
-FILES = ../common/imgui/*.cpp ../common/glad.c ../common/Shader.cpp ../common/VertexArray.cpp ../common/Texture.cpp
+FILES = ../common/imgui/*.cpp ../common/glad.c ../common/shader-c.cpp
 
 #CXXFLAGS += -DIMGUI_IMPL_OPENGL_LOADER_GL3W
 
