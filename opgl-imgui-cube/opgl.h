@@ -127,30 +127,62 @@ GLuint LoadTexture(const std::string &fileName)
 }
 
 GLfloat cube_vertices[] = {
-		-0.5, 0.5, 0.5,  0.0, 1.0,	 // Front Top Left		
-		0.5, 0.5, 0.5, 1.0, 1.0,		 // Front Top Right		
-		0.5, -0.5, 0.5,  1.0, 0.0,	 // Front Bottom Right	
-		-0.5, -0.5, 0.5,  0.0, 0.0,	 // Front Bottom Left	
-		-0.5, 0.5, -0.5, 0.0, 1.0,	 // Back Top Left		
-		0.5, 0.5, -0.5, 1.0, 1.0,	 // Back Top Right		
-		0.5, -0.5, -0.5, 1.0, 0.0,	 // Back Bottom Right		
-		-0.5, -0.5, -0.5, 0, 0.0, // Back Bottom Left
+		// Back
+		-0.5, 0.5, -0.5, 0.0, 1.0,	// Back Top Left
+		-0.5, -0.5, -0.5, 1.0, 1.0, // Back Top Right
+		0.5, -0.5, -0.5, 1.0, 0.0,	// Back Bottom Right
+		0.5, 0.5, -0.5, 0, 0.0,			// Back Bottom Left
+		// Front
+		-0.5, 0.5, 0.5, 0.0, 1.0,	 // Front Top Left
+		-0.5, -0.5, 0.5, 1.0, 1.0, // Front Top Right
+		0.5, -0.5, 0.5, 1.0, 0.0,	 // Front Bottom Right
+		0.5, 0.5, 0.5, 0.0, 0.0,	 // Front Bottom Left
+		// Right
+		0.5, 0.5, -0.5, 0.0, 1.0,	 // Right Top Left
+		0.5, -0.5, -0.5, 1.0, 1.0, // Right Top Right
+		0.5, -0.5, 0.5, 1.0, 0.0,	 // Right Bottom Right
+		0.5, 0.5, 0.5, 0, 0.0,		 // Right Bottom Left
+		// Left
+		-0.5, 0.5, -0.5, 0.0, 1.0,	// Left Top Left
+		-0.5, -0.5, -0.5, 1.0, 1.0, // Left Top Right
+		-0.5, -0.5, 0.5, 1.0, 0.0,	// Left Bottom Right
+		-0.5, 0.5, 0.5, 0, 0.0,			// Left Bottom Left
+		// Top
+		-0.5, 0.5, 0.5, 0.0, 1.0,	 // Left Top Left
+		-0.5, 0.5, -0.5, 1.0, 1.0, // Left Top Right
+		0.5, 0.5, -0.5, 1.0, 0.0,	 // Left Bottom Right
+		0.5, 0.5, 0.5, 0, 0.0,		 // Left Bottom Left
+		// Bottom
+		-0.5, -0.5, 0.5, 0.0, 1.0,	// Left Top Left
+		-0.5, -0.5, -0.5, 1.0, 1.0, // Left Top Right
+		0.5, -0.5, -0.5, 1.0, 0.0,	// Left Bottom Right
+		0.5, -0.5, 0.5, 0, 0.0,			// Left Bottom Left
 };
 
 // prettier-ignore
-GLuint cube_indexes[]= {
-		0,3,2,  //Front
-		2,1,0,
-		1,5,6,	//Right
-		6,2,1,
-		5,4,7,	//Left
-		7,6,5,
-		4,7,3,	//Back
-		3,0,4,
-		4,5,1,	//Top
-		1,0,4,
-		3,2,6,	//Bottom
-		6,7,3,
-};
+GLuint cube_indexes[] = {
+		//Back face
+		0, 1, 3,
+		3, 1, 2,
+
+		//Front face
+		4, 5, 7,
+		7, 5, 6,
+
+		//Right face
+		8, 9, 11,
+		11, 9, 10,
+
+		//Left face
+		12, 13, 15,
+		15, 13, 14,
+
+		//Top face
+		16, 17, 19,
+		19, 17, 18,
+
+		//Bottom face
+		20, 21, 23,
+		23, 21, 22};
 
 #endif

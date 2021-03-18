@@ -1,4 +1,15 @@
 #include "opgl.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+
+float rotate_x = 1.75;
+float rotate_y = 1.5;
+float rotate_z = 1.25;
+float rotate_speed = 50;
+
+
 
 void processInput(GLFWwindow *window)
 {
@@ -10,8 +21,10 @@ void processInput(GLFWwindow *window)
 
 int main(void)
 {
+    int screenWidth = 1480;
+    int screenHeight = 950;
     //Create the window and the OpenGL context
-    GLFWwindow *window = CreateWindow(1480, 950);
+    GLFWwindow *window = CreateWindow(screenWidth, screenHeight);
 
     //**********************************************************
     // Load shaders
@@ -48,6 +61,9 @@ int main(void)
     // Use vertex array
     glBindVertexArray(vertexArrayID);
     
+    glm::mat4 projection;
+    projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
+    
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
@@ -56,6 +72,23 @@ int main(void)
         glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
+
+        // Create transformations
+        glm::mat4 trasform(1.0f);
+        glm::mat4 view(1.0f);
+        trasform = glm::rotate(trasform, (GLfloat)glfwGetTime() * 1.0f, glm::vec3(0.5f, 1.0f, 0.0f)); // use with perspective projection
+        //trasform = glm::rotate(trasform, 1.0f, glm::vec3(0.5f, 1.0f, 0.0f)); // use with perspective projection
+        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); // use with perspective projection
+
+        // Get their uniform location
+        GLint transformLoc = glGetUniformLocation(shaderProgramID, "transform");
+        GLint viewLoc = glGetUniformLocation(shaderProgramID, "view");
+        GLint projLoc = glGetUniformLocation(shaderProgramID, "projection");
+        // Pass them to the shaders
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trasform));
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
         //----------------------------------------------------------
         // Draw container
         glDrawElements(
