@@ -10,8 +10,8 @@
 
 const char *glsl_version = "#version 150";
 
-float rotate_x = 0;
-float rotate_y = 0;
+float rotate_x = 0.5;
+float rotate_y = 1;
 float rotate_z = 0;
 
 float x = 0;
@@ -135,8 +135,8 @@ int main(void)
             ImGui::SliderFloat("rotate z", &rotate_z, -3.14f, 3.14f);
             if (ImGui::Button("Reset")) // Buttons return true when clicked
             {
-                rotate_x = 0;
-                rotate_y = 0;
+                rotate_x = 0.5;
+                rotate_y = 1;
                 rotate_z = 0;
 
                 x = 0;
