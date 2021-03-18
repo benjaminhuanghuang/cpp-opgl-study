@@ -13,8 +13,12 @@ const char *glsl_version = "#version 150";
 float rotate_x = 0;
 float rotate_y = 0;
 float rotate_z = 0;
-float rotate_speed = 50;
 
+float x = 0;
+float y = 0;
+float z = -3.0;
+
+float rotate_speed = 50;
 
 void processInput(GLFWwindow *window)
 {
@@ -48,7 +52,7 @@ int main(void)
     GLuint vertexBufferID = CreateVertexBuffer(cube_vertices, sizeof(cube_vertices));
 
     GLuint indexBufferID = CreateIndexBuffer(cube_indexes, sizeof(cube_indexes));
-    
+
     // create index buffer
     // Position attribute
     glVertexAttribPointer(
@@ -58,17 +62,13 @@ int main(void)
         GL_FALSE,            // Normolize
         5 * sizeof(GLfloat), // Stride, size of vertext
         (GLvoid *)0          // offest from start of vertext to this attribute
-        );
+    );
     glEnableVertexAttribArray(0);
     // TexCoord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(3* sizeof(GLfloat)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
     // Use vertex array
     glBindVertexArray(vertexArrayID);
-    
-    glm::mat4 projection;
-    projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
-    
 
     //创建并绑定ImGui
     IMGUI_CHECKVERSION();
@@ -87,15 +87,16 @@ int main(void)
         // Clear the screen to dark blue background
         glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
 
         // Create transformations
         glm::mat4 trasform(1.0f);
         glm::mat4 view(1.0f);
+        glm::mat4 projection;
+        projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
         //trasform = glm::rotate(trasform, (GLfloat)glfwGetTime() * 1.0f, glm::vec3(glm::vec3(rotate_x, rotate_y, rotate_z))); // use with perspective projection
         trasform = glm::rotate(trasform, 1.0f, glm::vec3(glm::vec3(rotate_x, rotate_y, rotate_z))); // use with perspective projection
         //trasform = glm::rotate(trasform, 1.0f, glm::vec3(0.5f, 1.0f, 0.0f)); // use with perspective projection
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); // use with perspective projection
+        view = glm::translate(view, glm::vec3(x, y, z)); // use with perspective projection
 
         // Get their uniform location
         GLint transformLoc = glGetUniformLocation(shaderProgramID, "transform");
@@ -109,10 +110,10 @@ int main(void)
         //----------------------------------------------------------
         // Draw mesh
         glDrawElements(
-            GL_TRIANGLES, // Type of polygon/primitive to draw
+            GL_TRIANGLES,         // Type of polygon/primitive to draw
             sizeof(cube_indexes), // Number of indices in index buffer
-            GL_UNSIGNED_INT, // Type of each index
-            nullptr // Usually nullptr
+            GL_UNSIGNED_INT,      // Type of each index
+            nullptr               // Usually nullptr
         );
 
         //----------------------------------------------------------
@@ -125,11 +126,24 @@ int main(void)
 
             ImGui::Begin("Control Panel"); // Create a ImGui window called "Control Panel"
 
-           
-            ImGui::SliderFloat("rotate x", &rotate_x, -3.14f, 3.14f);             // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::SliderFloat("rotate y", &rotate_y, -3.14f, 3.14f);             // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::SliderFloat("rotate z", &rotate_z, -3.14f, 3.14f);             // Edit 1 float using a slider from 0.0f to 1.0f
-          
+            ImGui::SliderFloat("x", &x, -100, 100);
+            ImGui::SliderFloat("y", &y, -100, 100);
+            ImGui::SliderFloat("z", &z, 0, -100);
+
+            ImGui::SliderFloat("rotate x", &rotate_x, -3.14f, 3.14f);
+            ImGui::SliderFloat("rotate y", &rotate_y, -3.14f, 3.14f);
+            ImGui::SliderFloat("rotate z", &rotate_z, -3.14f, 3.14f);
+            if (ImGui::Button("Reset")) // Buttons return true when clicked
+            {
+                rotate_x = 0;
+                rotate_y = 0;
+                rotate_z = 0;
+
+                x = 0;
+                y = 0;
+                z = -3.0;
+            }
+
             ImGui::End();
 
             // Rendering
