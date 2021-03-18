@@ -17,6 +17,8 @@ VAO is an object which contains one or more Vertex Buffer Objects and is designe
 VBO is a memory buffer in the high speed memory of your video card designed to **hold information about vertices**. 
 In our example we have two VBOs, one that describes the coordinates of our vertices and another that describes the color associated with each vertex. VBOs can also store information such as normals, texcoords, indicies, etc.
 
+![](./_images/vao.png)
+
 ## Shader 
 - Vertext shader in OpenGL is a piece of C like code written to the GLSL specification which influences the attributes of a vertex. Vertex shaders can be used to modify properties of the vertex such as position, color, and texture coordinates.
 

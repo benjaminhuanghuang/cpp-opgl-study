@@ -26,8 +26,8 @@ ImVec4 bg_color;
 
 void init()
 {
-    rotate_x = 0.5;
-    rotate_y = 1;
+    rotate_x = 0;
+    rotate_y = 0;
     rotate_z = 0;
 
     x = 0;
@@ -109,13 +109,17 @@ int main(void)
         // Create transformations
         glm::mat4 trasform(1.0f);
         glm::mat4 view(1.0f);
-        glm::mat4 projection;
-        projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
-        //trasform = glm::rotate(trasform, (GLfloat)glfwGetTime() * 1.0f, glm::vec3(glm::vec3(rotate_x, rotate_y, rotate_z))); // use with perspective projection
-        trasform = glm::rotate(trasform, 1.0f, glm::vec3(glm::vec3(rotate_x, rotate_y, rotate_z))); // use with perspective projection
-        //trasform = glm::rotate(trasform, 1.0f, glm::vec3(0.5f, 1.0f, 0.0f)); // use with perspective projection
-        view = glm::translate(view, glm::vec3(x, y, z)); // use with perspective projection
+        glm::mat4 projection(1.0f);
 
+        projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
+
+        //trasform = glm::rotate(trasform, (GLfloat)glfwGetTime() * 1.0f, glm::vec3(glm::vec3(rotate_x, rotate_y, rotate_z))); // use with perspective projection
+        trasform = glm::rotate(trasform, glm::radians(rotate_x), glm::vec3(1.0, 0, 0)); // route X
+        trasform = glm::rotate(trasform, glm::radians(rotate_y), glm::vec3(0, 1.0, 0)); // route Y
+        trasform = glm::rotate(trasform, glm::radians(rotate_z), glm::vec3(0, 0, 1.0)); // route Z
+
+        //trasform = glm::rotate(trasform, 1.0f, glm::vec3(0.5f, 1.0f, 0.0f)); // use with perspective projection
+        view = glm::translate(view, glm::vec3(x, y, z));
         // Get their uniform location
         GLint transformLoc = glGetUniformLocation(shaderProgramID, "transform");
         GLint viewLoc = glGetUniformLocation(shaderProgramID, "view");
@@ -150,13 +154,13 @@ int main(void)
             ImGui::SliderFloat("y", &y, -100, 100);
             ImGui::SliderFloat("z", &z, 0, -100);
 
-            ImGui::SliderFloat("rotate x", &rotate_x, -3.14f, 3.14f);
-            ImGui::SliderFloat("rotate y", &rotate_y, -3.14f, 3.14f);
-            ImGui::SliderFloat("rotate z", &rotate_z, -3.14f, 3.14f);
+            ImGui::SliderFloat("rotate x", &rotate_x, -180.0f, 180.0f);
+            ImGui::SliderFloat("rotate y", &rotate_y, -180.0f, 180.0f);
+            ImGui::SliderFloat("rotate z", &rotate_z, -180.0f, 180.0f);
             if (ImGui::Button("Reset")) // Buttons return true when clicked
             {
                 init();
-            }    
+            }
             ImGui::End();
 
             // Rendering
