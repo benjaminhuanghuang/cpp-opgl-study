@@ -6,16 +6,14 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include <GL/glew.h> // Initialize with glewInit()
 
-// Include glfw3.h after our OpenGL definitions
-#include <GLFW/glfw3.h>
+const char *glsl_version = "#version 150";
 
 int main(int, char **)
 {
-   GLFWwindow *window = CreateWidnow(1600, 1200, "ImGui Demo");
+   GLFWwindow *window = CreateWindow(1600, 1200, "ImGui Demo");
     //创建并绑定ImGui
-    IMGUI_CHECKVERSION();s
+    IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
     (void)io;

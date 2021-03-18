@@ -50,7 +50,7 @@ int main(void)
     int screenWidth = 1480;
     int screenHeight = 950;
     //Create the window and the OpenGL context
-    GLFWwindow *window = CreateWindow(screenWidth, screenHeight);
+    GLFWwindow *window = CreateWindow(screenWidth, screenHeight, "OpenGL Cube");
 
     //**********************************************************
     // Load shaders

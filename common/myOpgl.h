@@ -16,7 +16,7 @@ static void glfw_error_callback(int error, const char *description)
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 
-GLFWwindow *CreateWindow(int width, int heigh)
+GLFWwindow *CreateWindow(int width, int heigh, const std::string &title)
 {
 	glfwSetErrorCallback(glfw_error_callback);
 	if (!glfwInit())
@@ -35,7 +35,7 @@ GLFWwindow *CreateWindow(int width, int heigh)
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	//Create window
-	GLFWwindow *window = glfwCreateWindow(width, heigh, "CUBE", nullptr, nullptr); // Windowed
+	GLFWwindow *window = glfwCreateWindow(width, heigh, title.c_str(), nullptr, nullptr); // Windowed
 	if (!window)
 	{
 		std::cout << "Can not create window" << std::endl;
