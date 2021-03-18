@@ -12,6 +12,6 @@ uniform mat4 projection;
 
 void main()
 {
-	gl_Position = projection * view * model * vec4(inPosition, 1.0);
+	gl_Position = vec4(inPosition, 1.0);//projection * view * model * vec4(inPosition, 1.0);
 	passTextureCoord = vec2(inTexCoord.x, 1.0 - inTexCoord.y);
 }

@@ -38,12 +38,12 @@ int main(void)
         3,                   // Number of components (x,y,z)
         GL_FLOAT,            // Component type
         GL_FALSE,            // Normolize
-        6 * sizeof(GLfloat), // Stride, size of vertext
+        5 * sizeof(GLfloat), // Stride, size of vertext
         (GLvoid *)0          // offest from start of vertext to this attribute
         );
     glEnableVertexAttribArray(0);
     // TexCoord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
     // Use vertex array
     glBindVertexArray(vertexArrayID);

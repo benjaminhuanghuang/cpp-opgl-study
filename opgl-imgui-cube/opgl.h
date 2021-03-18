@@ -127,54 +127,30 @@ GLuint LoadTexture(const std::string &fileName)
 }
 
 GLfloat cube_vertices[] = {
-		-0.5, 0.5, 0.5, 1.0, 0.0, 0.0,	 // Front Top Left		- Red	- 0
-		0.5, 0.5, 0.5, 0.0, 1.0, 0.0,		 // Front Top Right		- Green	- 1
-		0.5, -0.5, 0.5, 0.0, 0.0, 1.0,	 // Front Bottom Right		- Blue	- 2
-		-0.5, -0.5, 0.5, 0.0, 1.0, 1.0,	 // Front Bottom Left		- Cyan	- 3
-		-0.5, 0.5, -0.5, 1.0, 0.0, 1.0,	 // Back Top Left		- Pink	- 4
-		0.5, 0.5, -0.5, 1.0, 1.0, 0.0,	 // Back Top Right		- Yellow- 5
-		0.5, -0.5, -0.5, 0.1, 0.1, 0.1,	 // Back Bottom Right		- White - 6
-		-0.5, -0.5, -0.5, 1.0, 1.0, 1.0, // Back Bottom Left		- Gray  - 7
+		-0.5, 0.5, 0.5,  0.0, 1.0,	 // Front Top Left		
+		0.5, 0.5, 0.5, 1.0, 1.0,		 // Front Top Right		
+		0.5, -0.5, 0.5,  1.0, 0.0,	 // Front Bottom Right	
+		-0.5, -0.5, 0.5,  0.0, 0.0,	 // Front Bottom Left	
+		-0.5, 0.5, -0.5, 0.0, 1.0,	 // Back Top Left		
+		0.5, 0.5, -0.5, 1.0, 1.0,	 // Back Top Right		
+		0.5, -0.5, -0.5, 1.0, 0.0,	 // Back Bottom Right		
+		-0.5, -0.5, -0.5, 0, 0.0, // Back Bottom Left
 };
 
 // prettier-ignore
-GLuint cube_indexes[] = {
-		0,
-		3,
-		2, // Front
-		2,
-		1,
-		0,
-		1,
-		5,
-		6, //Right
-		6,
-		2,
-		1,
-		5,
-		4,
-		7, //Left
-		7,
-		6,
-		5,
-		4,
-		7,
-		3, //Back
-		3,
-		0,
-		4,
-		4,
-		5,
-		1, //Top
-		1,
-		0,
-		4,
-		3,
-		2,
-		6, //Bottom
-		6,
-		7,
-		3,
+GLuint cube_indexes[]= {
+		0,3,2,  //Front
+		2,1,0,
+		1,5,6,	//Right
+		6,2,1,
+		5,4,7,	//Left
+		7,6,5,
+		4,7,3,	//Back
+		3,0,4,
+		4,5,1,	//Top
+		1,0,4,
+		3,2,6,	//Bottom
+		6,7,3,
 };
 
 #endif
