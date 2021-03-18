@@ -10,7 +10,6 @@
 
 #include "../common/shader-c.h"
 #define STB_IMAGE_IMPLEMENTATION
-
 #include "../common/stb_image.h"
 
 // use with Perspective Projection
@@ -119,7 +118,7 @@ int main(void)
     unsigned char *image = stbi_load("images/wood.png", &width, &height, &channels, 0);
     if (image == nullptr)
     {
-        printf("SOIL failed to load image %s\n", "images/wood.png");
+        printf("SOIL failed to load image %s\n", "images/image1.jpg");
     }
 
     int format = GL_RGB;
@@ -167,7 +166,6 @@ int main(void)
         //-----------------------------------------------------------
         // Activate shader
         glUseProgram(programID);
-
 
         // Using Texture
         glActiveTexture(GL_TEXTURE0);
