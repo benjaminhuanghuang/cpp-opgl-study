@@ -129,34 +129,36 @@ GLuint LoadTexture(const std::string &fileName)
 GLfloat cube_vertices[] = {
 		// Back
 		-0.5, 0.5, -0.5, 0.0, 1.0,	// Back Top Left
-		-0.5, -0.5, -0.5, 1.0, 1.0, // Back Bottom Left
+		-0.5, -0.5, -0.5, 0.0, 0.0, // Back Bottom Left
 		0.5, -0.5, -0.5, 1.0, 0.0,	// Back Bottom Right
-		0.5, 0.5, -0.5, 0, 0.0,			// Back Top Right
+		0.5, 0.5, -0.5, 1.0, 1.0,		// Back Top Right
 		// Front
 		-0.5, 0.5, 0.5, 0.0, 1.0,	 // Front Top Left
-		-0.5, -0.5, 0.5, 1.0, 1.0, // Front Bottom Left
+		-0.5, -0.5, 0.5, 0.0, 0.0, // Front Bottom Left
 		0.5, -0.5, 0.5, 1.0, 0.0,	 // Front Bottom Right
-		0.5, 0.5, 0.5, 0.0, 0.0,	 // Front Top Right
+		0.5, 0.5, 0.5, 1.0, 1.0,	 // Front Top Right
 		// Right
-		0.5, 0.5, -0.5, 0.0, 1.0,	 // Right Top Left
-		0.5, -0.5, -0.5, 1.0, 1.0, // Right Top Right
-		0.5, -0.5, 0.5, 1.0, 0.0,	 // Right Bottom Right
-		0.5, 0.5, 0.5, 0, 0.0,		 // Right Bottom Left
+		0.5, 0.5, -0.5, 0.0, 1.0,	 // Front Top Left
+		0.5, -0.5, -0.5, 0.0, 0.0, // Front Bottom Left
+		0.5, -0.5, 0.5, 1.0, 0.0,	 // Front Bottom Right
+		0.5, 0.5, 0.5, 1.0, 1.0,	 // Front Top Right
+
 		// Left
-		-0.5, 0.5, -0.5, 0.0, 1.0,	// Left Top Left
-		-0.5, -0.5, -0.5, 1.0, 1.0, // Left Top Right
-		-0.5, -0.5, 0.5, 1.0, 0.0,	// Left Bottom Right
-		-0.5, 0.5, 0.5, 0, 0.0,			// Left Bottom Left
+		-0.5, 0.5, -0.5, 0.0, 1.0,	// Front Top Left
+		-0.5, -0.5, -0.5, 0.0, 0.0, // Front Bottom Left
+		-0.5, -0.5, 0.5, 1.0, 0.0,	// Front Bottom Right
+		-0.5, 0.5, 0.5, 1.0, 1.0,		// Front Top Right
+
 		// Top
-		-0.5, 0.5, 0.5, 0.0, 1.0,	 // Left Top Left
-		-0.5, 0.5, -0.5, 1.0, 1.0, // Left Top Right
-		0.5, 0.5, -0.5, 1.0, 0.0,	 // Left Bottom Right
-		0.5, 0.5, 0.5, 0, 0.0,		 // Left Bottom Left
+		-0.5, 0.5, 0.5, 0.0, 1.0,	 // Front Top Left
+		-0.5, 0.5, -0.5, 0.0, 0.0, // Front Bottom Left
+		0.5, 0.5, -0.5, 1.0, 0.0,	 // Front Bottom Right
+		0.5, 0.5, 0.5, 1.0, 1.0,	 // Front Top Right
 		// Bottom
-		-0.5, -0.5, 0.5, 0.0, 1.0,	// Left Top Left
-		-0.5, -0.5, -0.5, 1.0, 1.0, // Left Top Right
-		0.5, -0.5, -0.5, 1.0, 0.0,	// Left Bottom Right
-		0.5, -0.5, 0.5, 0, 0.0,			// Left Bottom Left
+		-0.5, -0.5, 0.5, 0.0, 1.0,	// Front Top Lefts
+		-0.5, -0.5, -0.5, 0.0, 0.0, // Front Bottom Lefts
+		0.5, -0.5, -0.5, 1.0, 0.0,	// Front Bottom Rights
+		0.5, -0.5, 0.5, 1.0, 1.0,		// Front Top Rights
 };
 
 // prettier-ignore
