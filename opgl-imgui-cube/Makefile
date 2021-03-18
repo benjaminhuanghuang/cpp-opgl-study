@@ -6,7 +6,7 @@ LIBS = -L/usr/local/lib -lglfw  -lGLEW -framework OpenGL
 
 FILES = ../common/imgui/*.cpp ../common/glad.c ../common/shader-c.cpp
 
-#CXXFLAGS += -DIMGUI_IMPL_OPENGL_LOADER_GL3W
+CXXFLAGS += -g
 
 3dCube : 3dCube.cpp $(FILES)
 	g++ $^ $(CXXFLAGS) $(INCLUDES) $(LIBS) -o $@.exe &&\
