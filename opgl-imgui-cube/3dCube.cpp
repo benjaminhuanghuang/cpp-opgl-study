@@ -3,12 +3,17 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+//
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
-float rotate_x = 1.75;
-float rotate_y = 1.5;
-float rotate_z = 1.25;
+const char *glsl_version = "#version 150";
+
+float rotate_x = 0;
+float rotate_y = 0;
+float rotate_z = 0;
 float rotate_speed = 50;
-
 
 
 void processInput(GLFWwindow *window)
@@ -56,7 +61,7 @@ int main(void)
         );
     glEnableVertexAttribArray(0);
     // TexCoord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(6* sizeof(GLfloat)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(3* sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
     // Use vertex array
     glBindVertexArray(vertexArrayID);
@@ -64,6 +69,17 @@ int main(void)
     glm::mat4 projection;
     projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
     
+
+    //创建并绑定ImGui
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO &io = ImGui::GetIO();
+    (void)io;
+    ImGui::StyleColorsDark();
+    // Setup Platform/Renderer backends
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init(glsl_version);
+
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
@@ -76,7 +92,8 @@ int main(void)
         // Create transformations
         glm::mat4 trasform(1.0f);
         glm::mat4 view(1.0f);
-        trasform = glm::rotate(trasform, (GLfloat)glfwGetTime() * 1.0f, glm::vec3(0.5f, 1.0f, 0.0f)); // use with perspective projection
+        //trasform = glm::rotate(trasform, (GLfloat)glfwGetTime() * 1.0f, glm::vec3(glm::vec3(rotate_x, rotate_y, rotate_z))); // use with perspective projection
+        trasform = glm::rotate(trasform, 1.0f, glm::vec3(glm::vec3(rotate_x, rotate_y, rotate_z))); // use with perspective projection
         //trasform = glm::rotate(trasform, 1.0f, glm::vec3(0.5f, 1.0f, 0.0f)); // use with perspective projection
         view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); // use with perspective projection
 
@@ -90,13 +107,35 @@ int main(void)
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
         //----------------------------------------------------------
-        // Draw container
+        // Draw mesh
         glDrawElements(
             GL_TRIANGLES, // Type of polygon/primitive to draw
             sizeof(cube_indexes), // Number of indices in index buffer
             GL_UNSIGNED_INT, // Type of each index
             nullptr // Usually nullptr
         );
+
+        //----------------------------------------------------------
+        // ImGui
+        {
+            // Start the Dear ImGui frame
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+
+            ImGui::Begin("Control Panel"); // Create a ImGui window called "Control Panel"
+
+           
+            ImGui::SliderFloat("rotate x", &rotate_x, -3.14f, 3.14f);             // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("rotate y", &rotate_y, -3.14f, 3.14f);             // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("rotate z", &rotate_z, -3.14f, 3.14f);             // Edit 1 float using a slider from 0.0f to 1.0f
+          
+            ImGui::End();
+
+            // Rendering
+            ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        }
         //----------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
