@@ -129,14 +129,14 @@ GLuint LoadTexture(const std::string &fileName)
 GLfloat cube_vertices[] = {
 		// Back
 		-0.5, 0.5, -0.5, 0.0, 1.0,	// Back Top Left
-		-0.5, -0.5, -0.5, 1.0, 1.0, // Back Top Right
+		-0.5, -0.5, -0.5, 1.0, 1.0, // Back Bottom Left
 		0.5, -0.5, -0.5, 1.0, 0.0,	// Back Bottom Right
-		0.5, 0.5, -0.5, 0, 0.0,			// Back Bottom Left
+		0.5, 0.5, -0.5, 0, 0.0,			// Back Top Right
 		// Front
 		-0.5, 0.5, 0.5, 0.0, 1.0,	 // Front Top Left
-		-0.5, -0.5, 0.5, 1.0, 1.0, // Front Top Right
+		-0.5, -0.5, 0.5, 1.0, 1.0, // Front Bottom Left
 		0.5, -0.5, 0.5, 1.0, 0.0,	 // Front Bottom Right
-		0.5, 0.5, 0.5, 0.0, 0.0,	 // Front Bottom Left
+		0.5, 0.5, 0.5, 0.0, 0.0,	 // Front Top Right
 		// Right
 		0.5, 0.5, -0.5, 0.0, 1.0,	 // Right Top Left
 		0.5, -0.5, -0.5, 1.0, 1.0, // Right Top Right
@@ -184,5 +184,4 @@ GLuint cube_indexes[] = {
 		//Bottom face
 		20, 21, 23,
 		23, 21, 22};
-
 #endif

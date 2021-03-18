@@ -15,3 +15,22 @@
 
 
 
+## Draw 1
+```
+  GLuint vertexBufferID = CreateVertexBuffer(cube_vertices, sizeof(cube_vertices));
+  glDrawArrays(GL_TRIANGLES, 0, 36);
+```
+
+## Draw 2
+```
+  GLuint vertexBufferID = CreateVertexBuffer(cube_vertices, sizeof(cube_vertices));
+
+  GLuint indexBufferID = CreateIndexBuffer(cube_indexes, sizeof(cube_indexes));
+
+  glDrawElements(
+    GL_TRIANGLES, // Type of polygon/primitive to draw
+    sizeof(cube_indexes), // Number of indices in index buffer
+    GL_UNSIGNED_INT, // Type of each index
+    nullptr // Usually nullptr
+  );
+```

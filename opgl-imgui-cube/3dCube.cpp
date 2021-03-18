@@ -56,7 +56,7 @@ int main(void)
         );
     glEnableVertexAttribArray(0);
     // TexCoord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(6* sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
     // Use vertex array
     glBindVertexArray(vertexArrayID);
@@ -93,11 +93,10 @@ int main(void)
         // Draw container
         glDrawElements(
             GL_TRIANGLES, // Type of polygon/primitive to draw
-            6, // Number of indices in index buffer
+            sizeof(cube_indexes), // Number of indices in index buffer
             GL_UNSIGNED_INT, // Type of each index
             nullptr // Usually nullptr
         );
-
         //----------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -105,7 +104,7 @@ int main(void)
     //---------------------------------------------------------------
     // Clean vertex array object
     glDeleteBuffers(1, &vertexBufferID);
-    glDeleteBuffers(1, &indexBufferID);
+    //glDeleteBuffers(1, &indexBufferID);
     glDeleteVertexArrays(1, &vertexArrayID);
     //
     glDeleteProgram(shaderProgramID);
