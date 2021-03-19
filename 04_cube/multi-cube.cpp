@@ -29,8 +29,8 @@ glm::vec3 cubePositions[] = {
 
 int main(void)
 {
-    int screenWidth = 1480;
-    int screenHeight = 950;
+    int screenWidth = 1024;
+    int screenHeight = 768;
     //Create the window and the OpenGL context
     GLFWwindow *window = CreateWindow(screenWidth, screenHeight, "OpenGL Cube");
 
@@ -79,15 +79,28 @@ int main(void)
 
         //----------------------------------------------------------
         // Draw mesh
+        
+        glm::mat4 view(1.0f);
+        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        
+        glm::mat4 projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
 
         for (unsigned int i = 0; i < 10; i++)
         {
-            glm::mat4 model;
+            glm::mat4 model(1.0f);
             model = glm::translate(model, cubePositions[i]);
-            float angle = 20.0f * i;
-            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-            ourShader.setMat4("model", model);
+            float angle = 20.0f * i + 4;
+            model = glm::rotate(model, (float)glfwGetTime()*glm::radians(angle) , glm::vec3(1.0f, 0.3f, 0.5f));
+            GLint modelLoc = glGetUniformLocation(shaderProgramID, "model");
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
+            GLint viewLoc = glGetUniformLocation(shaderProgramID, "view");
+            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+            GLint projLoc = glGetUniformLocation(shaderProgramID, "projection");
+            glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+            glBindVertexArray(vertexArrayID);
             glDrawElements(
                 GL_TRIANGLES,         // Type of polygon/primitive to draw
                 sizeof(cube_indexes), // Number of indices in index buffer

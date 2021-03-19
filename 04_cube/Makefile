@@ -5,10 +5,12 @@ LIBS = -L/usr/local/lib -lglfw  -lGLEW -framework OpenGL
 COMMON = ../common/*.cpp
 
 cube : cube.cpp $(COMMON)
-	g++ $^ $(INCLUDES) $(LIBS)  -o $@.exe
+	g++ $^ $(INCLUDES) $(LIBS)  -o $@.exe &&\
+	./cube.exe
 
-multi-cube : multi-cube.cpp ../common/glad.c ../common/shader-c.cpp
-	g++ $^ $(INCLUDES) $(LIBS)  -o $@.exe
+multi-cube : multi-cube.cpp ../common/glad.c ../common/shader-c.cpp 
+	g++ $^ $(INCLUDES) $(LIBS)  -o $@.exe &&\
+	./multi-cube.exe
 
 
 clean:
