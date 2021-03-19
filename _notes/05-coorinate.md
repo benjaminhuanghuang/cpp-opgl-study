@@ -1,5 +1,5 @@
 
-
+![](./_images/coordinate_systems_right_handed.png)
 
 ## 局部空间(Local Space / Object Space)
 顶点是被设定在-0.5到0.5的坐标范围中，(0, 0)是它的原点
