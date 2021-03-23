@@ -102,7 +102,10 @@ The cross product does not work with 2D vectors. However, to convert a 2D vector
 Using the left-hand rule is a quick way to figure out the direction the cross product result faces
 
 ## 向量与标量运算
+
 ## Dot Product
+https://www.youtube.com/watch?v=h0NJK4mEIJU&ab_channel=PhysicsVideosbyEugeneKhutoryansky
+
 点乘是通过将对应分量逐个相乘，然后再把所得积相加来计算
 
 两个向量的点乘 = 它们的数乘结果乘以两个向量之间夹角的余弦值
