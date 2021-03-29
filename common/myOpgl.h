@@ -59,11 +59,11 @@ GLFWwindow *CreateWindow(int width, int height, const std::string &title)
 	glViewport(0, 0, screenWidth, screenHeight);
 	//glViewport(0, 0, width, height);
 
-	// Blend
+	// // Blend
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//
-	glEnable(GL_DEPTH_TEST);
+	// //
+	// glEnable(GL_DEPTH_TEST);
 
 	return window;
 }

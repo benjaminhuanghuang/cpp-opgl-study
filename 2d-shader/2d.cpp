@@ -6,6 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 //
+#include "GameMath.h"
 
 void processInput(GLFWwindow *window)
 {
@@ -40,6 +41,7 @@ glm::mat4 CreateTransformationMatrix(const glm::vec3 &translation, float rx, flo
 }
 
 float vertices[] = {
+    // Position, Normal, Texture coordinates
     -0.5f, 0.5f, 0.f, 0.f, 0.f, 0.0f, 0.f, 0.f, // top left
     0.5f, 0.5f, 0.f, 0.f, 0.f, 0.0f, 1.f, 0.f,  // top right
     0.5f, -0.5f, 0.f, 0.f, 0.f, 0.0f, 1.f, 1.f, // bottom right
@@ -59,6 +61,7 @@ int main(void)
 
   //**********************************************************
   // Load shaders
+  // GLuint shaderProgramID = LoadShaders("shaders/Sprite.vert", "shaders/Sprite.frag");
   GLuint shaderProgramID = LoadShaders("shaders/Sprite.vert", "shaders/Sprite.frag");
   glUseProgram(shaderProgramID);
 
@@ -86,18 +89,29 @@ int main(void)
       (GLvoid *)0          // offest from start of vertext to this attribute
   );
 
+  unsigned vertexSize = 8 * sizeof(GLfloat);
+  // Position is 3 floats
   glEnableVertexAttribArray(0);
-  // TexCoord attribute
-  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertexSize, 0);
+  // Normal is 3 floats
   glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLvoid *)(3 * sizeof(GLfloat)));
+  // TexCoord attribute
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLvoid *)(6 * sizeof(GLfloat)));
+  glEnableVertexAttribArray(2);
   // Use vertex array
   glBindVertexArray(vertexArrayID);
 
   //
   glm::mat4 viewProj = CreateSimpleViewProj(screenWidth, screenHeight);
   GLuint loc = glGetUniformLocation(shaderProgramID, "uViewProj");
-  // Send the matrix data to the uniform
   glUniformMatrix4fv(loc, 1, GL_TRUE, glm::value_ptr(viewProj));
+  // --- Use Matrix
+  // Matrix4 viewProj = Matrix4::CreateSimpleViewProj(1024.f, 768.f);
+  // GLuint loc = glGetUniformLocation(shaderProgramID, "uViewProj");
+  // glUniformMatrix4fv(loc, 1, GL_TRUE, viewProj.GetAsFloatPtr());
+
+  glUseProgram(shaderProgramID);
 
   while (!glfwWindowShouldClose(window))
   {
@@ -110,13 +124,23 @@ int main(void)
     //-------------Draw 2D ---------------------------------------------
     // Scale the quad by the width/height of texture
     glm::mat4 scaleMat = glm::scale(glm::mat4(1.0f), glm::vec3(256.0f, 256.0f, 1.0f));
-
-    glm::mat4 world = scaleMat * CreateTransformationMatrix(glm::vec3(375.0f, -275.0f, 0.0f), 0, 0, 0, 1);
-
-    // Set world transform
+    glm::mat4 world = CreateTransformationMatrix(glm::vec3(375.0f, -275.0f, 0.0f), 0, 0, 0, 0.75) * scaleMat;
     GLuint loc = glGetUniformLocation(shaderProgramID, "uWorldTransform");
-    // Send the matrix data to the uniform
+
     glUniformMatrix4fv(loc, 1, GL_TRUE, glm::value_ptr(world));
+
+    //---------- Use Matrix4
+    // Matrix4 scaleMat = Matrix4::CreateScale(
+    // 	static_cast<float>(256),
+    // 	static_cast<float>(256),
+    // 	1.0f);
+
+    // Matrix4	mWorldTransform = Matrix4::CreateScale(0.75);
+    // mWorldTransform *= Matrix4::CreateRotationZ(0);
+    // mWorldTransform *= Matrix4::CreateTranslation(Vector3(375.0f, -275.0f, 0.0f));
+    // Matrix4 world = scaleMat * mWorldTransform;
+    // GLuint loc = glGetUniformLocation(shaderProgramID, "uWorldTransform");
+    // glUniformMatrix4fv(loc, 1, GL_TRUE, world.GetAsFloatPtr());
 
     // Draw quad
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);

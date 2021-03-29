@@ -6,9 +6,9 @@
             "name": "(lldb) Launch exe",
             "type": "lldb",
             "request": "launch",
-            "program": "${workspaceRoot}/opgl-imgui-cube/3dCube.exe",
+            "program": "${workspaceRoot}/2d-shader/2d.exe",
             "args": [],
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/2d-shader",
             //"preLaunchTask": "cmake",
         }
     ]
