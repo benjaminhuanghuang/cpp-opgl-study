@@ -16,7 +16,7 @@ static void glfw_error_callback(int error, const char *description)
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 
-GLFWwindow *CreateWindow(int width, int heigh, const std::string &title)
+GLFWwindow *CreateWindow(int width, int height, const std::string &title)
 {
 	glfwSetErrorCallback(glfw_error_callback);
 	if (!glfwInit())
@@ -35,7 +35,7 @@ GLFWwindow *CreateWindow(int width, int heigh, const std::string &title)
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	//Create window
-	GLFWwindow *window = glfwCreateWindow(width, heigh, title.c_str(), nullptr, nullptr); // Windowed
+	GLFWwindow *window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr); // Windowed
 	if (!window)
 	{
 		std::cout << "Can not create window" << std::endl;
@@ -57,6 +57,8 @@ GLFWwindow *CreateWindow(int width, int heigh, const std::string &title)
 	glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
 
 	glViewport(0, 0, screenWidth, screenHeight);
+	//glViewport(0, 0, width, height);
+
 	// Blend
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
