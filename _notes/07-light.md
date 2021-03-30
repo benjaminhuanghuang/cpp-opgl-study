@@ -1,4 +1,7 @@
 
+## Phong Lighting Model
+Phong Lighting Model的3个元：环境(Ambient)、漫反射(Diffuse)和镜面(Specular)光照
+
 
 ##
 我们将这两个颜色向量作分量相乘，结果就是最终的颜色向量了：

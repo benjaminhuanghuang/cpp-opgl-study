@@ -1,7 +1,8 @@
 
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "../common/myOpgl.h"
+#include "../common/myMesh.h"
+
 #include <stdlib.h>
 #include <iostream>
 #include <glm/glm.hpp>
